@@ -1,13 +1,11 @@
 import '@/styles/globals.css'
-import { Nunito_Sans } from 'next/font/google'
+import localFont from 'next/font/local'
 
-const nunitoSans = Nunito_Sans({ 
-  weight: '400',
-  subsets: ['latin'] })
+const myFont = localFont({src: '../assets/fonts/NunitoSans-Regular.ttf'})
 
 export default function App({ Component, pageProps }) {
   return (
-    <main className={nunitoSans.className}>
+    <main className={myFont.className}>
       <Component {...pageProps} />
     </main>
   )
