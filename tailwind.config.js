@@ -17,6 +17,8 @@ module.exports = {
         "dark": '#3A3D42',
         "error": '#FF5B37',
         "accent": '#a9a9a9',
+        "disabled": '#dadada',
+        "txtDisabled": '#88888f',
         "primaryOpct" : 'rgba(99, 121, 244, 0.2)',
         "bgPrimary": '#fafcff'
         

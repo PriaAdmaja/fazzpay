@@ -31,7 +31,7 @@ const Login = () => {
     return (
         <section className="flex justify-center items-center">
             <Aside />
-            <main className="flex-1 relative bg-primary md:bg-white">
+            <main className="flex-1 relative bg-primary md:bg-white ">
                 <section className="py-[5%] px-[10%] m-[5%] md:m-0 bg-white rounded-xl ">
                     <h1 className="text-lg md:text-xl lg:text-2xl font-bold pb-5 md:pb-6 lg:pb-8 text-dark">Start Accessing Banking Needs
                         With All Devices and All Platforms
@@ -55,7 +55,10 @@ const Login = () => {
                     </div>
                     <p className="text-right pt-4 lg:pt-5 text-[#3a3d42] opacity-80 cursor-pointer text-sm md:text-base">Forgot Password?</p>
                     <p className="text-center text-error font-semibold py-4 md:py-6 lg:py-8 invisible text-sm md:text-base">Email or Password Invalid</p>
-                    <button type="button" className="bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80">Login</button>
+                    <div>
+                        <button type="button" className={`${email && password ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Sign Up</button>
+                        <div className={`${email && password ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Sign Up</div>
+                    </div>
                     <p className="text-center pt-6 lg:pt-10 text-dark text-sm md:text-base">Dont have an account? Let's <button type="button" className="text-primary">Sign Up</button></p>
                 </section>
             </main>

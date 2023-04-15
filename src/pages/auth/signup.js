@@ -43,10 +43,10 @@ const SignUp = () => {
         seePwd === true ? setSeePwd(false) : setSeePwd(true)
     }
     return (
-        <section className="flex justify-center items-center">
+        <section className="flex justify-center items-center ">
             <Aside />
-            <main className="flex-1 relative bg-primary md:bg-white">
-                <section className="py-[5%] px-[10%] m-[5%] md:m-0 bg-white rounded-xl ">
+            <main className="flex-1 relative bg-primary md:bg-white h-full">
+                <section className="py-[5%] px-[10%] m-[5%] md:m-0 bg-white rounded-xl">
                     <h1 className="text-lg md:text-xl lg:text-2xl font-bold pb-5 md:pb-6 lg:pb-8 text-dark">Start Accessing Banking Needs
                         With All Devices and All Platforms
                         With 30.000+ Users</h1>
@@ -65,19 +65,20 @@ const SignUp = () => {
                         <div className={`flex justify-start items-center gap-3 border-b-[1.5px] border-solid ${!email ? 'border-b-accent' : 'border-b-primary'}  pb-4`}>
                             <Image src={mail} alt="mail" className={`w-5 h-auto ${email ? 'hidden' : 'block'}`} />
                             <Image src={mailFilled} alt="mail" className={`w-5 h-auto ${email ? 'block' : 'hidden'}`} />
-                            <Image src={mailError} alt="mail" className="w-5 h-auto hidden" />
                             <input type="text" className="w-full outline-none text-sm md:text-base" name="email" placeholder="Enter your email" onChange={(e) => inputHandler(e)} />
                         </div>
                         <div className={`flex justify-start items-center gap-3 border-b-[1.5px] border-solid ${!password ? 'border-b-accent' : 'border-b-primary'}  pb-4`}>
                             <Image src={lock} alt="lock" className={`w-5 h-auto ${password ? 'hidden' : 'block'}`} />
                             <Image src={lockFilled} alt="lock" className={`w-5 h-auto ${password ? 'block' : 'hidden'}`} />
-                            <Image src={lockError} alt="lock" className="w-5 h-auto hidden" />
                             <input type={`${seePwd === true ? 'text' : 'password'}`} className="w-full outline-none text-sm md:text-base" name="password" placeholder="Enter your password" onChange={(e) => inputHandler(e)} />
-                            <Image src={eye} alt="lock" className={`w-5 h-auto ${seePwd === true? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword}/>
-                            <Image src={eyeCrossed} alt="lock" className={`w-5 h-auto ${seePwd === false? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword}/>
+                            <Image src={eye} alt="lock" className={`w-5 h-auto ${seePwd === true ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword} />
+                            <Image src={eyeCrossed} alt="lock" className={`w-5 h-auto ${seePwd === false ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword} />
                         </div>
                     </div>
-                    <button type="button" className="bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80">Sign Up</button>
+                    <div>
+                        <button type="button" className={`${email && password && firstname && lastname ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Sign Up</button>
+                        <div className={`${email && password && firstname && lastname ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Sign Up</div>
+                    </div>
                     <p className="text-center pt-4 lg:pt-6 text-dark text-sm md:text-base">Already have an account? Let's <button type="button" className="text-primary">Login</button></p>
                 </section>
             </main>

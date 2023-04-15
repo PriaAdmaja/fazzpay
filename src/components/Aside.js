@@ -13,8 +13,8 @@ const Aside = () => {
             <div className="py-[5%] px-[10%] ">
                 <p className="text-white text-3xl font-bold">FazzPay</p>
                 <div className="flex justify-center items-center ">
-                    <Image src={sample1} alt="sample" className="w-[230px] lg:w-[278px] h-auto -rotate-6 relative left-12" />
-                    <Image src={sample2} alt="sample" className="w-[230px] lg:w-[278px] h-auto rotate-6 relative right-12" />
+                    <Image src={sample1} alt="sample" className="w-[220px] lg:w-[278px] h-auto -rotate-6 relative left-12" />
+                    <Image src={sample2} alt="sample" className="w-[220px] lg:w-[278px] h-auto rotate-6 relative right-12" />
                 </div>
                 <p className="text-white text-xl lg:text-2xl font-bold pb-7">App that Covering Banking Needs.</p>
                 <p className="text-white opacity-80">FazzPay is an application that focussing in banking needs for all users
