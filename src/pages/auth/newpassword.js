@@ -9,13 +9,16 @@ import eyeCrossed from "../../assets/icons/eye-crossed.svg"
 
 const NewPasword = () => {
     const [password, setPassword] = useState(null)
+    const [rePassword, setRePassword] = useState(null)
+    const [seePwd1, setSeePwd1] = useState(false)
+    const [seePwd2, setSeePwd2] = useState(false)
 
-    const inputHandler = (e) => {
-        setPassword(e.target.value)
+    const showPassword1 = () => {
+        seePwd1 === true ? setSeePwd1(false) : setSeePwd1(true)
     }
 
-    const showPassword = () => {
-        seePwd === true ? setSeePwd(false) : setSeePwd(true)
+    const showPassword2 = () => {
+        seePwd2 === true ? setSeePwd2(false) : setSeePwd2(true)
     }
 
     return (
@@ -31,21 +34,21 @@ const NewPasword = () => {
                         <div className={`flex justify-start items-center gap-3 border-b-[1.5px] border-solid ${!password ? 'border-b-accent' : 'border-b-primary'}  pb-4`}>
                             <Image src={lock} alt="lock" className={`w-5 h-auto ${password ? 'hidden' : 'block'}`} />
                             <Image src={lockFilled} alt="lock" className={`w-5 h-auto ${password ? 'block' : 'hidden'}`} />
-                            <input type={`${seePwd === true ? 'text' : 'password'}`} className="w-full outline-none text-sm md:text-base" name="password" placeholder="Enter your password" onChange={(e) => inputHandler(e)} />
-                            <Image src={eye} alt="lock" className={`w-5 h-auto ${seePwd === true ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword} />
-                            <Image src={eyeCrossed} alt="lock" className={`w-5 h-auto ${seePwd === false ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword} />
+                            <input type={`${seePwd1 === true ? 'text' : 'password'}`} className="w-full outline-none text-sm md:text-base" name="password" placeholder="Enter your password" onChange={(e) => setPassword(e.target.value)} />
+                            <Image src={eye} alt="lock" className={`w-5 h-auto ${seePwd1 === true ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword1} />
+                            <Image src={eyeCrossed} alt="lock" className={`w-5 h-auto ${seePwd1 === false ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword1} />
                         </div>
                         <div className={`flex justify-start items-center gap-3 border-b-[1.5px] border-solid ${!password ? 'border-b-accent' : 'border-b-primary'}  pb-4`}>
-                            <Image src={lock} alt="lock" className={`w-5 h-auto ${password ? 'hidden' : 'block'}`} />
-                            <Image src={lockFilled} alt="lock" className={`w-5 h-auto ${password ? 'block' : 'hidden'}`} />
-                            <input type={`${seePwd === true ? 'text' : 'password'}`} className="w-full outline-none text-sm md:text-base" name="password" placeholder="Enter your password" onChange={(e) => inputHandler(e)} />
-                            <Image src={eye} alt="lock" className={`w-5 h-auto ${seePwd === true ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword} />
-                            <Image src={eyeCrossed} alt="lock" className={`w-5 h-auto ${seePwd === false ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword} />
+                            <Image src={lock} alt="lock" className={`w-5 h-auto ${rePassword ? 'hidden' : 'block'}`} />
+                            <Image src={lockFilled} alt="lock" className={`w-5 h-auto ${rePassword ? 'block' : 'hidden'}`} />
+                            <input type={`${seePwd2 === true ? 'text' : 'password'}`} className="w-full outline-none text-sm md:text-base" name="password" placeholder="Enter your password" onChange={(e) => setRePassword(e.target.value)} />
+                            <Image src={eye} alt="lock" className={`w-5 h-auto ${seePwd2 === true ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword2} />
+                            <Image src={eyeCrossed} alt="lock" className={`w-5 h-auto ${seePwd2 === false ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword2} />
                         </div>
                     </div>
                     <div className="pt-[90px]">
-                        <button type="button" className={`${email ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Confirm</button>
-                        <div className={`${email ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Confirm</div>
+                        <button type="button" className={`${password && rePassword ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Confirm</button>
+                        <div className={`${password && rePassword ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Confirm</div>
                     </div>
                 </section>
             </main>
