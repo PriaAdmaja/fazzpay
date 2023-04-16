@@ -5,7 +5,7 @@ import bell from "../assets/icons/bell.svg"
 
 const Header = () => {
     return (
-        <header className="py-[50px] px-[150px] flex shadow-lg rounded-2xl items-center select-none">
+        <header className="py-[50px] px-[150px] flex shadow-lg rounded-2xl items-center select-none relative z-10">
             <p className="font-bold text-primary text-3xl mr-auto cursor-pointer">FazzPay</p>
             <div className="flex justify-center items-center gap-8">
                 <div className="flex justify-center items-center gap-5 cursor-pointer">
