@@ -1,6 +1,8 @@
 import { useState } from "react"
 import Aside from "@/components/Aside"
 import Image from "next/image"
+import Link from "next/link"
+import axios from "axios"
 
 import mail from "../../assets/icons/mail.svg"
 import mailFilled from "../../assets/icons/mail-filled.svg"
@@ -10,11 +12,19 @@ import lockFilled from "../../assets/icons/lock-filled.svg"
 import lockError from "../../assets/icons/lock-error.svg"
 import eye from "../../assets/icons/eye.svg"
 import eyeCrossed from "../../assets/icons/eye-crossed.svg"
+import Loader from "@/components/Loader"
+import Toast from "@/components/Toast"
 
 const Login = () => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [seePwd, setSeePwd] = useState(false)
+    //loader
+    const [isLoading, setIsLoading] = useState(false)
+    //toast
+    const [toastMsg, setToastMsg] = useState(null)
+    const [toastType, setToastType] = useState(null)
+    const [showToast, setShowToast] = useState(false)
 
     const inputHandler = (e) => {
         if (e.target.name === 'email') {
@@ -26,6 +36,28 @@ const Login = () => {
 
     const showPassword = () => {
         seePwd === true ? setSeePwd(false) : setSeePwd(true)
+    }
+
+    const generateLogin = async () => {
+        try {
+            setIsLoading(true)
+            const body = {
+                email,
+                password
+            }
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/auth/login`
+            const result = await axios.post(url, body)
+            setToastMsg(result.data.msg)
+            setToastType('success')
+            setShowToast(true)
+            console.log(result);
+        } catch (error) {
+            setToastMsg(error.response.data.msg)
+            setToastType('danger')
+            setShowToast(true)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -49,19 +81,21 @@ const Login = () => {
                             <Image src={lockFilled} alt="lock" className={`w-5 h-auto ${password ? 'block' : 'hidden'}`} />
                             <Image src={lockError} alt="lock" className="w-5 h-auto hidden" />
                             <input type={`${seePwd === true ? 'text' : 'password'}`} className="w-full outline-none text-sm md:text-base" name="password" placeholder="Enter your password" onChange={(e) => inputHandler(e)} />
-                            <Image src={eye} alt="lock" className={`w-5 h-auto ${seePwd === true? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword}/>
-                            <Image src={eyeCrossed} alt="lock" className={`w-5 h-auto ${seePwd === false? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword}/>
+                            <Image src={eye} alt="lock" className={`w-5 h-auto ${seePwd === true ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword} />
+                            <Image src={eyeCrossed} alt="lock" className={`w-5 h-auto ${seePwd === false ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword} />
                         </div>
                     </div>
                     <p className="text-right pt-4 lg:pt-5 text-[#3a3d42] opacity-80 cursor-pointer text-sm md:text-base">Forgot Password?</p>
                     <p className="text-center text-error font-semibold py-4 md:py-6 lg:py-8 invisible text-sm md:text-base">Email or Password Invalid</p>
                     <div>
-                        <button type="button" className={`${email && password ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Sign Up</button>
-                        <div className={`${email && password ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Sign Up</div>
+                        <button type="button" className={`${email && password ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} onClick={generateLogin}>Login</button>
+                        <div className={`${email && password ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Login</div>
                     </div>
-                    <p className="text-center pt-6 lg:pt-10 text-dark text-sm md:text-base">Dont have an account? Let's <button type="button" className="text-primary">Sign Up</button></p>
+                    <p className="text-center pt-6 lg:pt-10 text-dark text-sm md:text-base">Dont have an account? Let's <Link href={'/auth/register'} className="text-primary">Sign Up</Link></p>
                 </section>
+                {isLoading && <Loader />}
             </main>
+            <Toast msg={toastMsg} isShow={showToast} toastType={toastType} showHandler={() => setShowToast(false)} />
         </section>
     )
 }
