@@ -1,16 +1,47 @@
 import { useState } from "react"
 import Aside from "@/components/Aside"
 import Image from "next/image"
+import axios from "axios"
 
 import mail from "../../assets/icons/mail.svg"
 import mailFilled from "../../assets/icons/mail-filled.svg"
+import Loader from "@/components/Loader"
+import Toast from "@/components/Toast"
 
 const ResetPasword = () => {
     const [email, setEmail] = useState(null)
+    //loader
+    const [isLoading, setIsLoading] = useState(false)
+    //toast
+    const [toastMsg, setToastMsg] = useState(null)
+    const [toastType, setToastType] = useState(null)
+    const [showToast, setShowToast] = useState(false)
 
     const inputHandler = (e) => {
         setEmail(e.target.value)
+    }
 
+    const sendReset = async () => {
+        try {
+            setIsLoading(true)
+            const linkDirect = `http://localhost:3000/user/newpassword`
+            const body = {
+                email,
+                linkDirect
+            }
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/auth/forgot-password`
+            const result = await axios.post(url, body)
+            console.log(result);
+            setShowToast(true)
+            setToastMsg(result.data.msg)
+            setToastType('success')
+        } catch (error) {
+            setShowToast(true)
+            setToastMsg(error.response.data.msg)
+            setToastType('danger')
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -30,11 +61,13 @@ const ResetPasword = () => {
                         </div>
                     </div>
                     <div className="pt-[90px]">
-                        <button type="button" className={`${email ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Confirm</button>
+                        <button type="button" className={`${email ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} onClick={sendReset}>Confirm</button>
                         <div className={`${email ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Confirm</div>
                     </div>
                 </section>
+                {isLoading && <Loader />}
             </main>
+            <Toast msg={toastMsg} isShow={showToast} toastType={toastType} showHandler={() => setShowToast(false)} />
         </section>
     )
 }

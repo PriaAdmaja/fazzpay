@@ -1,17 +1,29 @@
 import { useState } from "react"
 import Aside from "@/components/Aside"
 import Image from "next/image"
+import { useRouter } from "next/router"
+import axios from "axios"
 
-import lock from "../../assets/icons/lock.svg"
-import lockFilled from "../../assets/icons/lock-filled.svg"
-import eye from "../../assets/icons/eye.svg"
-import eyeCrossed from "../../assets/icons/eye-crossed.svg"
+import lock from "../../../assets/icons/lock.svg"
+import lockFilled from "../../../assets/icons/lock-filled.svg"
+import eye from "../../../assets/icons/eye.svg"
+import eyeCrossed from "../../../assets/icons/eye-crossed.svg"
+import Loader from "@/components/Loader"
+import Toast from "@/components/Toast"
 
 const NewPasword = () => {
     const [password, setPassword] = useState(null)
     const [rePassword, setRePassword] = useState(null)
     const [seePwd1, setSeePwd1] = useState(false)
     const [seePwd2, setSeePwd2] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    //toast
+    const [toastMsg, setToastMsg] = useState(null)
+    const [toastType, setToastType] = useState(null)
+    const [showToast, setShowToast] = useState(false)
+
+    const router = useRouter()
+    let keysChangePassword = router.query.keysChangePassword
 
     const showPassword1 = () => {
         seePwd1 === true ? setSeePwd1(false) : setSeePwd1(true)
@@ -19,6 +31,34 @@ const NewPasword = () => {
 
     const showPassword2 = () => {
         seePwd2 === true ? setSeePwd2(false) : setSeePwd2(true)
+    }
+
+    const generateNewPassword = async () => {
+        try {
+            setIsLoading(true)
+            const body = {
+                keysChangePassword,
+                newPassword: password,
+                confirmPassword: rePassword
+            }
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/auth/reset-password`
+            const result = await axios.patch(url, body)
+            console.log(result);
+            setShowToast(true)
+            setToastMsg(result.data.msg)
+            setToastType('success')
+            router.push('/auth/login')
+        } catch (error) {
+            setShowToast(true)
+            setToastMsg(error.response.data.msg)
+            setToastType('danger')
+            setTimeout(() => {
+                router.push('/user/resetpassword')
+            }, 3000)
+        } finally {
+            setIsLoading(false)
+        }
+
     }
 
     return (
@@ -47,12 +87,14 @@ const NewPasword = () => {
                         </div>
                     </div>
                     <div className="pt-[90px]">
-                        <button type="button" className={`${password && rePassword ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Confirm</button>
+                        <button type="button" className={`${password && rePassword ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} onClick={generateNewPassword}>Confirm</button>
                         <div className={`${password && rePassword ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Confirm</div>
                     </div>
                 </section>
+                {isLoading && <Loader />}
             </main>
-        </section>
+            <Toast msg={toastMsg} isShow={showToast} toastType={toastType} showHandler={() => setShowToast(false)} />
+            </section>
     )
 }
 

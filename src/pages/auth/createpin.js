@@ -1,8 +1,12 @@
 import { useState } from "react"
 import Image from "next/image"
+import axios from "axios"
+import { useSelector } from "react-redux"
+import { useRouter } from "next/router"
 
 import Aside from "@/components/Aside"
 import check from "../../assets/icons/check.svg"
+import Loader from "@/components/Loader"
 
 const CreatePin = () => {
     const [pin1, setPin1] = useState(null)
@@ -12,6 +16,16 @@ const CreatePin = () => {
     const [pin5, setPin5] = useState(null)
     const [pin6, setPin6] = useState(null)
     const [pinSuccess, setPinSuccess] = useState(false)
+    //loader
+    const [isLoading, setIsLoading] = useState(false)
+    //toast
+    const [toastMsg, setToastMsg] = useState(null)
+    const [toastType, setToastType] = useState(null)
+    const [showToast, setShowToast] = useState(false)
+
+    const id = useSelector((state) => state.userData.id)
+    const token = useSelector((state) => state.userData.token)
+    const router = useRouter()
 
     const pinHandler = (e) => {
         switch (e.target.name) {
@@ -30,8 +44,32 @@ const CreatePin = () => {
         }
     }
 
-    const confirmPin = () => {
-        setPinSuccess(true)
+    const confirmPin = async () => {
+        try {
+            setIsLoading(true)
+            const rawPin = [pin1, pin2, pin3, pin4, pin5, pin6]
+            const pin = Number(rawPin.join(''))
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/pin/${id}`
+            console.log(id);
+            const result = await axios.patch(url, { pin }, {
+                headers: {
+                    'Authorization': `Beaer ${token}`
+                }
+            })
+            setToastMsg(result.data.msg)
+            setToastType('success')
+            setShowToast(true)
+            setPinSuccess(true)
+        } catch (error) {
+            if(error.response.data.msg === "Please login first !") {
+                return router.push('/auth/login')
+            }
+            setToastMsg(error.response.data.msg)
+            setToastType('danger')
+            setShowToast(true)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -73,10 +111,10 @@ const CreatePin = () => {
                     <h1 className="text-lg md:text-xl lg:text-2xl font-bold pb-5 md:pb-6 lg:pb-8 text-dark">Your PIN Was Successfully Created</h1>
                     <p className="text-dark text-sm md:text-base opacity-60 pb-10  lg:pb-16">Your PIN was successfully created and you can now access all the features in FazzPay.</p>
                     <div className="">
-                        <button type="button" className={` bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Go To Dashboard</button>
-
+                        <button type="button" className={` bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} onClick={() => router.push('/')}>Go To Dashboard</button>
                     </div>
                 </section>
+                {isLoading && <Loader />}
             </main>
         </section>
     )

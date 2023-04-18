@@ -3,6 +3,8 @@ import Aside from "@/components/Aside"
 import Image from "next/image"
 import Link from "next/link"
 import axios from "axios"
+import { useDispatch } from "react-redux"
+import { useRouter } from "next/router"
 
 import mail from "../../assets/icons/mail.svg"
 import mailFilled from "../../assets/icons/mail-filled.svg"
@@ -14,6 +16,7 @@ import eye from "../../assets/icons/eye.svg"
 import eyeCrossed from "../../assets/icons/eye-crossed.svg"
 import Loader from "@/components/Loader"
 import Toast from "@/components/Toast"
+import { userDataAction } from "@/redux/slice/userData"
 
 const Login = () => {
     const [email, setEmail] = useState(null)
@@ -25,6 +28,9 @@ const Login = () => {
     const [toastMsg, setToastMsg] = useState(null)
     const [toastType, setToastType] = useState(null)
     const [showToast, setShowToast] = useState(false)
+
+    const dispatch = useDispatch()
+    const router = useRouter()
 
     const inputHandler = (e) => {
         if (e.target.name === 'email') {
@@ -47,10 +53,17 @@ const Login = () => {
             }
             const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/auth/login`
             const result = await axios.post(url, body)
+            dispatch(userDataAction.submitToken(result.data.data.token))
+            dispatch(userDataAction.submitPin(result.data.data.pin))
+            dispatch(userDataAction.submitId(result.data.data.id))
+            if(result.data.data.pin === null) {
+                router.push('/auth/createpin')
+                return
+            }
             setToastMsg(result.data.msg)
             setToastType('success')
             setShowToast(true)
-            console.log(result);
+            router.push('/')
         } catch (error) {
             setToastMsg(error.response.data.msg)
             setToastType('danger')
@@ -85,7 +98,7 @@ const Login = () => {
                             <Image src={eyeCrossed} alt="lock" className={`w-5 h-auto ${seePwd === false ? 'block' : 'hidden'} cursor-pointer`} onClick={showPassword} />
                         </div>
                     </div>
-                    <p className="text-right pt-4 lg:pt-5 text-[#3a3d42] opacity-80 cursor-pointer text-sm md:text-base">Forgot Password?</p>
+                    <p className="text-right pt-4 lg:pt-5 text-[#3a3d42] opacity-80 cursor-pointer text-sm md:text-base"><Link href={'/user/resetpassword'}>Forgot password?</Link></p>
                     <p className="text-center text-error font-semibold py-4 md:py-6 lg:py-8 invisible text-sm md:text-base">Email or Password Invalid</p>
                     <div>
                         <button type="button" className={`${email && password ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} onClick={generateLogin}>Login</button>
