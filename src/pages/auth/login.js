@@ -57,7 +57,7 @@ const Login = () => {
             dispatch(userDataAction.submitPin(result.data.data.pin))
             dispatch(userDataAction.submitId(result.data.data.id))
             if(result.data.data.pin === null) {
-                router.push('/auth/createpin')
+                router.push('/user/createpin')
                 return
             }
             setToastMsg(result.data.msg)
