@@ -63,7 +63,7 @@ const Login = () => {
             setToastMsg(result.data.msg)
             setToastType('success')
             setShowToast(true)
-            router.push('/')
+            router.push('/dashboard')
         } catch (error) {
             setToastMsg(error.response.data.msg)
             setToastType('danger')

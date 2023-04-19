@@ -1,8 +1,13 @@
+import { useSelector } from "react-redux"
+import { useRouter } from "next/router"
+
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Sidebar from "@/components/Sidebar"
 
 const PersonalInfo = () => {
+    const profile = useSelector(state => state.profile.profile)
+    const router = useRouter()
     return (
         <>
             <Header />
@@ -14,22 +19,22 @@ const PersonalInfo = () => {
                     <div className="flex flex-col gap-5 text-[#7a7886]">
                         <div className="p-4 shadow-lg">
                             <p>First Name</p>
-                            <p className="font-bold text-xl text-[#514f5b]">Pria</p>
+                            <p className="font-bold text-xl text-[#514f5b]">{profile.firstName}</p>
                         </div>
                         <div className="p-4 shadow-lg">
                             <p>Last Name</p>
-                            <p className="font-bold text-xl text-[#514f5b]">Admaja</p>
+                            <p className="font-bold text-xl text-[#514f5b]">{profile.lastName}</p>
                         </div>
                         <div className="p-4 shadow-lg">
                             <p>Verified E-mail</p>
-                            <p className="font-bold text-xl text-[#514f5b]">priaadmaja@gmail.com</p>
+                            <p className="font-bold text-xl text-[#514f5b]">{profile.email}</p>
                         </div>
                         <div className="p-4 shadow-lg flex justify-between items-center">
                             <div>
                                 <p>Phone Number</p>
-                                <p className="font-bold text-xl text-[#514f5b]">08123456789</p>
+                                <p className="font-bold text-xl text-[#514f5b]">{profile.noTelp || '-'}</p>
                             </div>
-                            <button type="button" className="text-primary">Manage</button>
+                            <button type="button" className="text-primary" onClick={() => router.push('/profile/personal-info/phone-number')}>Manage</button>
                         </div>
                     </div>
                 </section>

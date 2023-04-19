@@ -1,14 +1,20 @@
 import Image from "next/image"
+import axios from "axios"
+import { useState } from "react"
+import { useSelector } from "react-redux"
+import { useRouter } from "next/router"
 
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Sidebar from "@/components/Sidebar"
+import Loader from "@/components/Loader"
+import Toast from "@/components/Toast"
 
 import lock from "../../assets/icons/lock.svg"
 import lockFilled from "../../assets/icons/lock-filled.svg"
 import eye from "../../assets/icons/eye.svg"
 import eyeCrossed from "../../assets/icons/eye-crossed.svg"
-import { useState } from "react"
+
 
 const ChangePassword = () => {
     const [curPassword, setCurPassword] = useState(null)
@@ -17,6 +23,15 @@ const ChangePassword = () => {
     const [seeNewPassword, setSeeNewPassword] = useState(false)
     const [reNewPassword, setReNewPassword] = useState(null)
     const [seeReNewPassword, setSeeReNewPassword] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    //toast
+    const [toastMsg, setToastMsg] = useState(null)
+    const [toastType, setToastType] = useState(null)
+    const [showToast, setShowToast] = useState(false)
+
+    const router = useRouter()
+
+    const {id, token} = useSelector(state => state.userData)
 
     const curPasswordHandler = (e) => {
         setCurPassword(e.target.value)
@@ -40,6 +55,35 @@ const ChangePassword = () => {
 
     const showReNewPassword = () => {
         seeReNewPassword === false ? setSeeReNewPassword(true) : setSeeReNewPassword(false)
+    }
+
+    const updatePassword = async() => {
+        try {
+            setIsLoading(true)
+            const body = {
+                oldPassword: curPassword,
+                newPassword,
+                confirmPassword: reNewPassword
+            }
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/password/${id}`
+            const result = await axios.patch(url, body, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setShowToast(true)
+            setToastMsg(result.data.msg)
+            setToastType('success')
+            setTimeout(() => {
+                router.push('/profile')
+            }, 3000)
+        } catch (error) {
+            setShowToast(true)
+            setToastMsg(error.response.data.msg)
+            setToastType('danger')
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -75,13 +119,15 @@ const ChangePassword = () => {
                             </div>
                         </div>
                         <div className="mt-[70px]">
-                            <button type="button" className={`${curPassword && newPassword && reNewPassword ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Change Password</button>
+                            <button type="button" className={`${curPassword && newPassword && reNewPassword ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} onClick={updatePassword}>Change Password</button>
                             <div className={`${curPassword && newPassword && reNewPassword ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Change Password</div>
                         </div>
                     </div>
                 </secton>
             </main>
             <Footer />
+            {isLoading && <Loader />}
+            <Toast msg={toastMsg} isShow={showToast} toastType={toastType} showHandler={() => setShowToast(false)} />
         </>
     )
 }

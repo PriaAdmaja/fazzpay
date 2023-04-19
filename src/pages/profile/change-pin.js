@@ -1,8 +1,13 @@
 import { useState } from "react"
+import axios from "axios"
+import { useSelector } from "react-redux"
+import { useRouter } from "next/router"
 
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Sidebar from "@/components/Sidebar"
+import Loader from "@/components/Loader"
+import Toast from "@/components/Toast"
 
 const ChangePin = () => {
     const [pin1, setPin1] = useState(null)
@@ -12,6 +17,15 @@ const ChangePin = () => {
     const [pin5, setPin5] = useState(null)
     const [pin6, setPin6] = useState(null)
     const [currentPin, setCurrentPin] = useState(false)
+    //loader
+    const [isLoading, setIsLoading] = useState(false)
+    //toast
+    const [toastMsg, setToastMsg] = useState(null)
+    const [toastType, setToastType] = useState(null)
+    const [showToast, setShowToast] = useState(false)
+
+    const { id, token } = useSelector(state => state.userData)
+    const router= useRouter()
 
     const pinHandler = (e) => {
         switch (e.target.name) {
@@ -30,14 +44,60 @@ const ChangePin = () => {
         }
     }
 
-    const sendCurrentPin = () => {
-        setCurrentPin(true)
-        setPin1(null)
-        setPin2(null)
-        setPin3(null)
-        setPin4(null)
-        setPin5(null)
-        setPin6(null)
+    const sendCurrentPin = async () => {
+        try {
+            setIsLoading(true)
+            const rawPin = [pin1, pin2, pin3, pin4, pin5, pin6]
+            const pin = Number(rawPin.join(''))
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/pin/${pin}`
+            const result = await axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            if (!result.data.data.id === id) {
+                throw new Error('Wrong PIN!')
+            }
+            setCurrentPin(true)
+            setPin1(null)
+            setPin2(null)
+            setPin3(null)
+            setPin4(null)
+            setPin5(null)
+            setPin6(null)
+        } catch (error) {
+            setShowToast(true)
+            setToastMsg(error.response.data.msg)
+            setToastType('danger')
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const changePin = async() => {
+        try {
+            setIsLoading(true)
+            const rawPin = [pin1, pin2, pin3, pin4, pin5, pin6]
+            const pin = Number(rawPin.join(''))
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/pin/${id}`
+            const result = await axios.patch(url, {pin}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setShowToast(true)
+            setToastMsg(result.data.msg)
+            setToastType('success')
+            setTimeout(() => {
+                router.push('/profile')
+            }, 3000)
+        } catch (error) {
+            setShowToast(true)
+            setToastMsg(error.response.data.msg)
+            setToastType('danger')
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -100,13 +160,15 @@ const ChangePin = () => {
                             </div>
                         </div>
                         <div className="pt-[90px]">
-                            <button type="button" className={`${pin1 && pin2 && pin3 && pin4 && pin5 && pin6 ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} >Change PIN</button>
+                            <button type="button" className={`${pin1 && pin2 && pin3 && pin4 && pin5 && pin6 ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} onClick={changePin}>Change PIN</button>
                             <div className={`${pin1 && pin2 && pin3 && pin4 && pin5 && pin6 ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Change PIN</div>
                         </div>
                     </div>
                 </section>
             </main>
             <Footer />
+            {isLoading && <Loader />}
+            <Toast msg={toastMsg} isShow={showToast} toastType={toastType} showHandler={() => setShowToast(false)} />
         </>
     )
 }
