@@ -6,14 +6,15 @@ import defaultAvatar from "../assets/avatars/default-avatar.jpg"
 
 const Header = () => {
     const profile = useSelector(state => state.profile.profile)
+    const avatar = `${process.env.NEXT_PUBLIC_AVATAR}${profile.image}`
 
     return (
         <header className="py-[50px] px-[150px] flex shadow-lg rounded-2xl items-center select-none relative z-10">
             <p className="font-bold text-primary text-3xl mr-auto cursor-pointer">FazzPay</p>
             <div className="flex justify-center items-center gap-8">
                 <div className="flex justify-center items-center gap-5 cursor-pointer">
-                    <div className="w-12 h-12 rounded-md overflow-hidden">
-                        <Image src={profile.image || defaultAvatar} alt="avatar" />
+                    <div className="w-12 h-12 rounded-md overflow-hidden relative">
+                        <Image src={profile.image ? avatar : defaultAvatar} alt="avatar" className="object-cover" fill/>
                     </div>
                     <div>
                         <p className="font-bold text-lg text-dark text-center">{profile.firstName} {profile.lastName}</p>

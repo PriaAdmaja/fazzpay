@@ -17,8 +17,10 @@ import Loader from "@/components/Loader"
 
 const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false)
+    const [dataDashboard, setDataDashboard] = useState({})
     const id = useSelector((state) => state.userData.id)
     const token = useSelector((state) => state.userData.token)
+    const phoneNumber = useSelector((state) => state.profile.profile.noTelp)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -31,14 +33,32 @@ const Dashboard = () => {
                     'Authorization': `Bearer ${token}`
                 }
             }).then(res => dispatch(profileAction.submitProfile(res.data.data)))
-            .catch(err => console.log(err))
-            .finally(() => setIsLoading(false))
-        }
-        return () => {getData = false}
+                .catch(err => console.log(err))
+                .finally(() => setIsLoading(false))
 
+            const urlDashboard = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/dashboard/${id}`
+            axios.get(urlDashboard, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(res => setDataDashboard(res.data.data))
+                .catch(error => console.log(error))
+        }
+        return () => { getData = false }
     }, [id])
 
-    if(isLoading) return <Loader />
+    const { listIncome, listExpense } = dataDashboard
+
+    let total = 0
+    const chart = []
+    listIncome?.map((data, i) => {
+        total += data.total
+        total -= listExpense[i].total
+        chart.push({ "day": data.day, "balance": total })
+    })
+    const maxValue = [...chart].sort((a, b) => b.balance - a.balance)[0]?.balance
+
+    if (isLoading) return <Loader />
 
     return (
         <body>
@@ -49,8 +69,8 @@ const Dashboard = () => {
                     <section className="p-8 bg-primary flex justify-between items-center w-full rounded-xl shadow-lg">
                         <div className="flex flex-col justify-between gap-4 h-full">
                             <p className="text-[#e0e0e0] text-lg">Balance</p>
-                            <p className="text-white text-4xl font-bold">Rp120.000</p>
-                            <p className="text-[#dfdcdc] text-sm font-medium">+6282228316811</p>
+                            <p className="text-white text-4xl font-bold">{`Rp${Number(dataDashboard.totalIncome) - Number(dataDashboard.totalExpense)}`}</p>
+                            <p className="text-[#dfdcdc] text-sm font-medium">{phoneNumber ? `+62 ${phoneNumber}` : '-'} </p>
                         </div>
 
                         <div className="flex flex-col gap-4">
@@ -72,44 +92,26 @@ const Dashboard = () => {
                                 <div>
                                     <Image src={arrowIncome} alt="income" />
                                     <p className="text-[#6a6a6a] text-sm py-2">Income</p>
-                                    <p className="text-dark font-bold">Rp2.120.000</p>
+                                    <p className="text-dark font-bold">{`Rp${dataDashboard.totalIncome}`}</p>
                                 </div>
                                 <div>
                                     <Image src={arrowExpense} alt="expense" />
                                     <p className="text-[#6a6a6a] text-sm py-2">Expense</p>
-                                    <p className="text-dark font-bold">Rp120.000</p>
+                                    <p className="text-dark font-bold">{`Rp${dataDashboard.totalExpense}`}</p>
                                 </div>
                             </div>
-                            <div className="flex justify-between">
-                                <div className="flex flex-col-reverse items-center gap-4">
-                                    <p className="text-[#8F8F8F] text-sm">Sun</p>
-                                    <div className="w-3 h-[223px] bg-primary rounded-md"></div>
-                                </div>
-                                <div className="flex flex-col-reverse items-center gap-4">
-                                    <p className="text-[#8F8F8F] text-sm">Mon</p>
-                                    <div className="w-3 h-[223px] bg-primary rounded-md"></div>
-                                </div>
-                                <div className="flex flex-col-reverse items-center gap-4">
-                                    <p className="text-[#8F8F8F] text-sm">Tue</p>
-                                    <div className="w-3 h-[223px] bg-primary rounded-md"></div>
-                                </div>
-                                <div className="flex flex-col-reverse items-center gap-4">
-                                    <p className="text-[#8F8F8F] text-sm">Wed</p>
-                                    <div className="w-3 h-[223px] bg-primary rounded-md"></div>
-                                </div>
-                                <div className="flex flex-col-reverse items-center gap-4">
-                                    <p className="text-[#8F8F8F] text-sm">Thu</p>
-                                    <div className="w-3 h-[223px] bg-primary rounded-md"></div>
-                                </div>
-                                <div className="flex flex-col-reverse items-center gap-4">
-                                    <p className="text-[#8F8F8F] text-sm">Fri</p>
-                                    <div className="w-3 h-[223px] bg-primary rounded-md"></div>
-                                </div>
-                                <div className="flex flex-col-reverse items-center gap-4">
-                                    <p className="text-[#8F8F8F] text-sm">Sat</p>
-                                    <div className="w-3 h-[223px] bg-primary rounded-md"></div>
-                                </div>
-
+                            <div className="flex justify-between pb-6">
+                                {chart.map((data, i) => {
+                                    let height = Math.floor((data.balance / maxValue) * 223)
+                                    let hValue = `${height}px`
+                                    return (
+                                        <div className="flex flex-col-reverse items-center justify-start gap-4 h-[259px]" key={i}>
+                                            <div className={`w-3 bg-primary rounded-md relative`} style={{ height: `${hValue}` }} >
+                                                <p className="text-[#8F8F8F] text-sm absolute -bottom-6 left-1/2 -translate-x-1/2">{data.day.slice(0, 3)}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
                             </div>
                         </section>
                         <section className="w-2/4 bg-white p-8 rounded-xl shadow-lg">

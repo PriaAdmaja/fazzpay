@@ -1,5 +1,7 @@
 import Image from "next/image"
 import { useRouter } from "next/router"
+import { useSelector, useDispatch } from "react-redux"
+import axios from "axios"
 
 import dashboard from "../assets/icons/grid.svg"
 import dashboardActive from "../assets/icons/grid-active.svg"
@@ -9,10 +11,30 @@ import plusIcon from "../assets/icons/plus.svg"
 import plusIconActive from "../assets/icons/plus-active.svg"
 import profile from "../assets/icons/profile.svg"
 import profileActive from "../assets/icons/profile-active.svg"
-import logout from "../assets/icons/log-out.svg"
+import logoutIcon from "../assets/icons/log-out.svg"
+import { profileAction } from "@/redux/slice/profile"
+import { userDataAction } from "@/redux/slice/userData"
 
 const Sidebar = () => {
     const router = useRouter()
+    const dispatch = useDispatch()
+    const token = useSelector(state => state.userData.token)
+
+    const logout = async() => {
+        try {
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/auth/logout`
+            await axios.post(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            dispatch(userDataAction.clearData())
+            dispatch(profileAction.clearData())
+            router.push('/auth/login')
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <aside className="rounded-xl bg-white py-12 w-1/4 flex flex-col items-start gap-10 shadow-xl">
             <div className={`${router.pathname === '/dashboard' ? 'border-l-4 border-solid border-l-primary' : 'border-none'} flex justify-start items-center gap-6 px-8 cursor-pointer`} onClick={() => router.push('/dashboard')}>
@@ -35,8 +57,8 @@ const Sidebar = () => {
                 <Image src={profileActive} alt="profile" className={`${router.pathname.split('/')[1] === 'profile' ? "block" : "hidden"} w-7 h-7`} />
                 <p className={`${router.pathname.split('/')[1] === 'profile' ? 'text-primary' : 'text-dark'} text-lg opacity-80`}>Profile</p>
             </div>
-            <div className={`'border-none' flex justify-start items-center gap-6 px-8 mt-auto cursor-pointer`}>
-                <Image src={logout} alt="logout" className={` w-7 h-7`} />
+            <div className={`'border-none' flex justify-start items-center gap-6 px-8 mt-auto cursor-pointer`} onClick={logout}>
+                <Image src={logoutIcon} alt="logout" className={` w-7 h-7`} />
                 <p className={`'text-dark' text-lg opacity-80`}>Logout</p>
             </div>
         </aside>
