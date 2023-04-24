@@ -14,10 +14,14 @@ import arrowExpense from "../../assets/icons/arrow-expense.svg"
 import avatarExmp from "../../assets/avatars/1.png"
 import { profileAction } from "@/redux/slice/profile"
 import Loader from "@/components/Loader"
+import TopUp from "@/components/Topup"
 
 const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [dataDashboard, setDataDashboard] = useState({})
+    const [dataHistory, setDataHistory] = useState([])
+    
+
     const id = useSelector((state) => state.userData.id)
     const token = useSelector((state) => state.userData.token)
     const phoneNumber = useSelector((state) => state.profile.profile.noTelp)
@@ -43,9 +47,18 @@ const Dashboard = () => {
                 }
             }).then(res => setDataDashboard(res.data.data))
                 .catch(error => console.log(error))
+
+            const urlHistory = `${process.env.NEXT_PUBLIC_FAZZPAY_API}//transaction/history?limit=4`
+            axios.get(urlHistory, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(res => setDataHistory(res.data.data)).catch(err => console.log(err))
         }
         return () => { getData = false }
     }, [id])
+    
+
 
     const { listIncome, listExpense } = dataDashboard
 
@@ -136,6 +149,7 @@ const Dashboard = () => {
                 </section>
             </main>
             <Footer />
+            
         </body>
     )
 }
