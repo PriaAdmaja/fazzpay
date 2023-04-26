@@ -23,7 +23,7 @@ const Home = () => {
     <main className='bg-[#FAFCFF]'>
       <header className='bg-primary relative overflow-hidden'>
         <Image src={bgLanding} alt='background' className='absolute top-10 ' />
-        <section className='px-[150px]'>
+        <section className='px-[5%] lg:px-[100px] xl:px-[150px]'>
           <nav className='flex  py-16 items-center'>
             <p className='text-white font-bold mr-auto text-3xl'>FazzPay</p>
             <div className='flex gap-7 z-50'>
@@ -32,24 +32,24 @@ const Home = () => {
             </div>
           </nav>
           <section className='relative overflow-hidden'>
-            <div className='w-1/2 flex flex-col gap-10 pb-[254px]'>
+            <div className='w-1/2 flex flex-col gap-10 pb-[180px] lg:pb-[254px]'>
               <h1 className='font-bold text-6xl text-white'>Awesome App
                 For Saving Time.</h1>
               <p className='text-lg text-white'>We bring you a mobile app for banking problems that
                 oftenly wasting much of your times.</p>
-              <button type='button' className='py-4 px-11 bg-white rounded-xl text-lg font-semibold text-primary w-1/3'>Try It Free</button>
+              <button type='button' className='py-4 px-11 bg-white rounded-xl text-lg font-semibold text-primary w-1/2 lg:w-1/3'>Try It Free</button>
             </div>
-            <Image src={sample} alt='sample' className='w-1/2 absolute right-0 -top-20 ' />
+            <Image src={sample} alt='sample' className='w-1/2 absolute right-0  top-0 lg:-top-20 ' />
           </section>
         </section>
       </header>
-      <section className='bg-[rgba(71,58,209,.06)] flex justify-between items-center px-[150px] py-24'>
+      <section className='bg-[rgba(71,58,209,.06)] flex justify-between items-center px-[5%] lg:px-[100px] xl:px-[150px] py-16 lg:py-24'>
         <Image src={microsoft} alt='microsoft' />
         <Image src={dropbox} alt='dropbox' />
         <Image src={hnm} alt='H&M' />
         <Image src={airbnb} alt='airbnb' />
       </section>
-      <section className='px-[150px] py-[120px]'>
+      <section className='px-[5%] lg:px-[100px] xl:px-[150px] py-16 lg:py-[120px]'>
         <h2 className='font-bold text-6xl text-dark text-center'><span className='text-primary'>About</span> the Application.</h2>
         <p className='text-lg w-1/2 text-center mx-auto pt-8'>We have some great features from the application and it’s totally free to use by all users around the world.</p>
         <div className='flex justify-center items-center gap-5 pt-16'>
@@ -76,14 +76,14 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className='bg-primary/5 px-[150px] flex justify-center items-center overflow-hidden'>
-        <div className='relative w-2/5 flex-1'>
-          <div className='flex flex-col absolute'>
+      <section className='bg-primary/5 px-[5%] lg:px-[100px] xl:px-[150px] flex justify-center items-center overflow-hidden'>
+        <div className='relative w-2/5 flex-1 overflow-hidden'>
+          <div className=' items-center gap-14 '>
             <Image src={sample1} alt='chart' className='w-full ' />
             <Image src={sample1} alt='chart' className='w-full ' />
           </div>
         </div>
-        <div className='flex-1 py-[174px]'>
+        <div className='flex-1 py-16 lg:py-[174px]'>
           <h2 className='font-bold text-6xl text-dark text-left pb-10'>All The <span className='text-primary'>Great</span> Fazzpay Features</h2>
           <div className='flex flex-col gap-7 justify-center items-center'>
             <div className='p-6 rounded-xl bg-white shadow-md w-full'>
@@ -111,7 +111,7 @@ const Home = () => {
         </div>
 
       </section>
-      <section className='py-[120px] px-[150px]'>
+      <section className='py-[120px] px-[5%] lg:px-[100px] xl:px-[150px]'>
         <h2 className='font-bold text-6xl text-dark text-center'>What Users are <span className='text-primary'>Saying.</span></h2>
         <p className='text-lg w-1/2 text-center mx-auto pt-8'>We have some great features from the application and it’s totally free to use by all users around the world.</p>
         <section className='w-full pt-[60px] relative'>
@@ -119,9 +119,9 @@ const Home = () => {
             <div className='overflow-hidden rounded-xl w-[120px] h-[120px] mx-auto'>
               <Image src={avatarSample} alt='avatar' className='object-cover' />
             </div>
-            <p className='text-center pt-8 pb-2'>Alex Hansinburg</p>
-            <p className='text-center'>Designer</p>
-            <p className='text-center pt-14'>“This is the most outstanding app that I’ve ever try in my live, this app is such an amazing masterpiece and it’s suitable for you who is bussy with their bussiness and must transfer money to another person aut there. Just try this app and see the power!”</p>
+            <p className='text-center pt-8 pb-2 text-2xl text-dark font-bold'>Alex Hansinburg</p>
+            <p className='text-center text-xl text-[#56585B]'>Designer</p>
+            <p className='text-center pt-14 text-lg text-[#676A71]'>“This is the most outstanding app that I’ve ever try in my live, this app is such an amazing masterpiece and it’s suitable for you who is bussy with their bussiness and must transfer money to another person aut there. Just try this app and see the power!”</p>
           </div>
           <div className='flex justify-between w-full items-center absolute top-1/2'>
             <div className='w-[60px] h-[60px] flex justify-center items-center bg-white rounded-xl shadow-md cursor-pointer'>
@@ -133,7 +133,7 @@ const Home = () => {
           </div>
         </section>
       </section>
-      <footer className='bg-primary py-20 px-[150px]'>
+      <footer className='bg-primary py-20 px-[5%] lg:px-[100px] xl:px-[150px]'>
         <section className='w-1/3'>
           <p className='text-4xl text-white font-semibold'>FazzPay</p>
           <p className='text-lg text-white pt-8 pb-12'>Simplify financial needs and saving much time in banking needs with one single app.</p>

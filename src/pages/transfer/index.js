@@ -54,12 +54,12 @@ const Transfer = () => {
 
     const nextPage = () => {
         const page = userList.pagination?.page + 1
-        router.push(`/transfer?page=${page}`)
+        router.push(`/transfer?page=${page}${!router.query.search ? '' : `&search=${router.query.search}`}`)
     }
 
     const prevPage = () => {
         const page = userList.pagination?.page - 1
-        router.push(`/transfer?page=${page}`)
+        router.push(`/transfer?page=${page}${!router.query.search ? '' : `&search=${router.query.search}`}`)
     }
 
     return (
