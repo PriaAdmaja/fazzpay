@@ -5,13 +5,53 @@ import Sidebar from "@/components/Sidebar"
 import success from "../../../assets/icons/check.svg"
 import failed from "../../../assets/icons/x.svg"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import defaultAvatar from "../../../assets/avatars/default-avatar.jpg"
 import download from "../../../assets/icons/download.svg"
+import { useDispatch, useSelector } from "react-redux"
+import axios from "axios"
+import Loader from "@/components/Loader"
+import { transactionStatusAction } from "@/redux/slice/transactionStatus"
+import { transferInfoAction } from "@/redux/slice/transferInfo"
+import { useRouter } from "next/router"
+import PinConfirmation from "@/components/PinConfirmation"
 
 const Status = () => {
-    const [isSuccess, setIsSuccess] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [receiverData, setReceiverData] = useState({})
+    const [showPin, setShowPin] = useState(false)
+
+    const {transactionInfo} = useSelector(state => state.transactionStatus)
+    const {token} = useSelector(state => state.userData)
+    const dispatch = useDispatch()
+    const router = useRouter()
+    
+    useEffect(() => {
+        let getData = true
+        if(getData) {
+            setIsLoading(true)
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/profile/${transactionInfo.receiverId}`
+            axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(res => setReceiverData(res.data.data)).catch(err => console.log(err)).finally(() => setIsLoading(false))
+        }
+        return () => {getData = false}
+    }, [])
+
     const date = new Date()
+
+    const showHandler = () => {
+        showPin ? setShowPin(false) : setShowPin(true)
+    }
+
+    const clearTransaction = () => {
+        dispatch(transactionStatusAction.clearData())
+        dispatch(transferInfoAction.clearData())
+        router.push('/dashboard')
+    }
+
     return (
         <>
             <Header />
@@ -19,13 +59,13 @@ const Status = () => {
                 <Sidebar />
                 <section className=" rounded-xl bg-white w-3/4 p-8 shadow-xl min-h-[678px]">
                     <section className="pt-7 pb-[55px]">
-                        <div className={`${isSuccess ? 'block' : 'hidden'}`}>
+                        <div className={`${transactionInfo.status === 'success' ? 'block' : 'hidden'}`}>
                             <div className="w-[70px] h-[70px] bg-[#1EC15F] rounded-full flex justify-center items-center mx-auto">
                                 <Image src={success} alt="success" />
                             </div>
                             <p className="text-xl text-dark font-bold pt-7 text-center">Transfer Success</p>
                         </div>
-                        <div className={`${isSuccess ? 'hidden' : 'block'}`}>
+                        <div className={`${transactionInfo.status === 'success' ? 'hidden' : 'block'}`}>
                             <div className="w-[70px] h-[70px] bg-[#FF5B37] rounded-full flex justify-center items-center mx-auto">
                                 <Image src={failed} alt="failed" />
                             </div>
@@ -36,11 +76,11 @@ const Status = () => {
                     <div className="flex flex-col gap-5">
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Amount</p>
-                            <p className="font-bold text-xl text-[#514F5B]">Rp100.000</p>
+                            <p className="font-bold text-xl text-[#514F5B]">Rp{transactionInfo.amount}</p>
                         </div>
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Balance Left</p>
-                            <p className="font-bold text-xl text-[#514F5B]">Rp100.000</p>
+                            <p className="font-bold text-xl text-[#514F5B]">Rp{transactionInfo.balance}</p>
                         </div>
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Date & Time</p>
@@ -48,7 +88,7 @@ const Status = () => {
                         </div>
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Notes</p>
-                            <p className="font-bold text-xl text-[#514F5B]">For dinner</p>
+                            <p className="font-bold text-xl text-[#514F5B]">{transactionInfo.notes}</p>
                         </div>
 
                     </div>
@@ -56,25 +96,27 @@ const Status = () => {
                         <p className="text-[#514F5B] pb-2 font-bold text-xl">Transfer to</p>
                         <div className="flex justify-start items-center gap-5 cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl w-full">
                             <div className="w-12 h-12 rounded-md overflow-hidden relative">
-                                <Image src={defaultAvatar} alt="avatar" className="object-cover" fill />
+                                <Image src={!receiverData.image ? defaultAvatar : `${process.env.NEXT_PUBLIC_AVATAR}${receiverData.image}`} alt="avatar" className="object-cover" fill />
                             </div>
-                            <div>
-                                <p className="font-bold text-lg text-dark text-center">Pria Admaja</p>
-                                <p className="text-sm text-dark opacity-90 text-center">+628912345678</p>
+                            <div className="flex flex-col items-start">
+                                <p className="font-bold text-lg text-dark text-center">{receiverData.firstName} {receiverData.lastName}</p>
+                                <p className="text-sm text-dark opacity-90 text-center">{receiverData.noTelp}</p>
                             </div>
                         </div>
                     </div>
                     <div className="mt-[100px] flex justify-end items-center gap-5">
-                        <button type="button" className={`bg-primaryOpct text-primary justify-center items-center gap-5 py-4 px-10 rounded-xl ${isSuccess ? 'flex' : 'hidden'}`}>
+                        <button type="button" className={`bg-primaryOpct text-primary justify-center items-center gap-5 py-4 px-10 rounded-xl ${transactionInfo.status === 'success' ? 'flex' : 'hidden'}`}>
                             <Image src={download} alt="download" />
                             <p className="text-lg font-bold">Download PDF</p>
                         </button>
-                        <button type="button" className={`bg-primary rounded-xl py-4 px-10 text-white text-lg font-bold ${isSuccess ? 'block' : 'hidden'}`}>Back To Home</button>
-                        <button type="button" className={`${isSuccess ? 'hidden' : 'block'} bg-primary rounded-xl py-4 px-10 text-white text-lg font-bold`}>Try Again</button>
+                        <button type="button" className={`bg-primary rounded-xl py-4 px-10 text-white text-lg font-bold ${transactionInfo.status === 'success' ? 'block' : 'hidden'}`} onClick={clearTransaction}>Back To Home</button>
+                        <button type="button" className={`${transactionInfo.status === 'success' ? 'hidden' : 'block'} bg-primary rounded-xl py-4 px-10 text-white text-lg font-bold`} onClick={() => setShowPin(true)}>Try Again</button>
                     </div>
+                    {isLoading && <Loader />}
                 </section>
             </main>
             <Footer />
+            <PinConfirmation show={showPin} showHandler={showHandler} />
         </>
     )
 }

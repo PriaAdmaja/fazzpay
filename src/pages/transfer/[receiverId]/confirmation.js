@@ -1,4 +1,6 @@
 import Image from "next/image"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
@@ -6,11 +8,34 @@ import Sidebar from "@/components/Sidebar"
 
 import defaultAvatar from "../../../assets/avatars/default-avatar.jpg"
 import PinConfirmation from "@/components/PinConfirmation"
-import { useState } from "react"
+import Loader from "@/components/Loader"
+import { useSelector } from "react-redux"
 
 const Confirmation = () => {
     const [showPin, setShowPin] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [receiverData, setReceiverData] = useState(null)
+    
+
     const date = new Date()
+    const {receiverId, amount, notes} = useSelector(state => state.transferInfo.transferInfo)
+    const token = useSelector(state => state.userData.token)
+    const {balance} = useSelector(state => state.profile.profile)
+
+    useEffect(() => {
+        let getData = true
+        if (getData === true) {
+            setIsLoading(true)
+            const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/profile/${receiverId}`
+            axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(res => setReceiverData(res.data.data)).catch(err => console.log(err)).finally(() => setIsLoading(false))
+        }
+        return () => { getData = false }
+
+    }, [receiverId])
 
     const showHandler = () => {
         showPin ? setShowPin(false) : setShowPin(true)
@@ -23,23 +48,23 @@ const Confirmation = () => {
                 <section className=" rounded-xl bg-white w-3/4 p-8 shadow-xl min-h-[678px]">
                     <p className="font-bold text-lg text-dark pb-6">Transfer To</p>
                     <div className="flex justify-start items-center gap-5 cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
-                        <div className="w-12 h-12 rounded-md overflow-hidden relative">
-                            <Image src={defaultAvatar} alt="avatar" className="object-cover" fill />
+                    <div className="w-12 h-12 rounded-md overflow-hidden relative">
+                            <Image src={!receiverData?.image ? defaultAvatar : `${process.env.NEXT_PUBLIC_AVATAR}${receiverData.image}`} alt="avatar" className="object-cover" fill />
                         </div>
                         <div>
-                            <p className="font-bold text-lg text-dark text-center">Pria Admaja</p>
-                            <p className="text-sm text-dark opacity-90 text-center">+628912345678</p>
+                            <p className="font-bold text-lg text-dark text-center">{receiverData?.firstName} {receiverData?.lastName}</p>
+                            <p className="text-sm text-dark opacity-90 text-center">{receiverData?.noTelp}</p>
                         </div>
                     </div>
                     <p className="font-bold text-lg text-dark pb-6 pt-10">Details</p>
                     <div className="flex flex-col gap-5">
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Amount</p>
-                            <p className="font-bold text-xl text-[#514F5B]">Rp100.000</p>
+                            <p className="font-bold text-xl text-[#514F5B]">Rp{amount}</p>
                         </div>
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Balance Left</p>
-                            <p className="font-bold text-xl text-[#514F5B]">Rp100.000</p>
+                            <p className="font-bold text-xl text-[#514F5B]">Rp{balance}</p>
                         </div>
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Date & Time</p>
@@ -47,13 +72,13 @@ const Confirmation = () => {
                         </div>
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Notes</p>
-                            <p className="font-bold text-xl text-[#514F5B]">For dinner</p>
+                            <p className="font-bold text-xl text-[#514F5B]">{notes}</p>
                         </div>
                     </div>
                     <div className="flex justify-end mt-16">
                         <button type="button" className="bg-primary py-4 px-12 text-white text-lg font-bold rounded-xl hover:bg-primary/75 " onClick={showHandler}>Continue</button>
                     </div>
-
+                    {isLoading && <Loader />}
                 </section>
             </main>
             <Footer />

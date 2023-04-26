@@ -2,7 +2,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import dashboard from "../assets/icons/grid.svg"
 import dashboardActive from "../assets/icons/grid-active.svg"
@@ -26,6 +26,7 @@ const Sidebar = () => {
     const topupHandler = () => {
         showTopup ? setShowTopup(false) : setShowTopup(true)
     }
+    
 
     const logout = async() => {
         try {
@@ -44,15 +45,15 @@ const Sidebar = () => {
     }
     return (
         <aside className="rounded-xl bg-white py-12 w-1/4 flex flex-col items-start gap-10 shadow-xl">
-            <div className={`${showTopup ? 'border-none' : router.pathname === '/dashboard' ? 'border-l-4 border-solid border-l-primary' : 'border-none'} flex justify-start items-center gap-6 px-8 cursor-pointer`} onClick={() => router.push('/dashboard')}>
-                <Image src={dashboard} alt="dashboard" className={`${showTopup ? "block" : router.pathname === '/dashboard' ? "hidden" : "block"} w-7 h-7`} />
-                <Image src={dashboardActive} alt="dashboard" className={`${showTopup ? 'hidden' : router.pathname === '/dashboard' ? "block" : "hidden"} w-7 h-7`} />
-                <p className={`${showTopup ? 'text-dark' : router.pathname === '/dashboard' ? 'text-primary' : 'text-dark'} text-lg opacity-80`}>Dashboard</p>
+            <div className={`${showTopup ? 'border-none' : router.pathname.split('/')[1] === 'dashboard' ? 'border-l-4 border-solid border-l-primary' : 'border-none'} flex justify-start items-center gap-6 px-8 cursor-pointer`} onClick={() => router.push('/dashboard')}>
+                <Image src={dashboard} alt="dashboard" className={`${showTopup ? "block" : router.pathname.split('/')[1] === 'dashboard' ? "hidden" : "block"} w-7 h-7`} />
+                <Image src={dashboardActive} alt="dashboard" className={`${showTopup ? 'hidden' : router.pathname.split('/')[1] === 'dashboard' ? "block" : "hidden"} w-7 h-7`} />
+                <p className={`${showTopup ? 'text-dark' : router.pathname.split('/')[1] === 'dashboard' ? 'text-primary' : 'text-dark'} text-lg opacity-80`}>Dashboard</p>
             </div>
-            <div className={`${showTopup ? 'border-none' : router.pathname === '/transfer' ? 'border-l-4 border-solid border-l-primary' : 'border-none'} cursor-pointer flex justify-start items-center gap-6 px-8`} onClick={() => router.push('/transfer')}>
-                <Image src={upArrow} alt="transfer" className={`${showTopup ? 'block' : router.pathname === '/transfer' ? "hidden" : "block"} w-7 h-7`} />
-                <Image src={upArrowActive} alt="transfer" className={`${showTopup ? 'hidden' : router.pathname === '/transfer' ? "block" : "hidden"} w-7 h-7`} />
-                <p className={`${showTopup ? 'text-dark' : router.pathname === '/transfer' ? 'text-primary' : 'text-dark'} text-lg opacity-80`}>Transfer</p>
+            <div className={`${showTopup ? 'border-none' : router.pathname.split('/')[1] === 'transfer' ? 'border-l-4 border-solid border-l-primary' : 'border-none'} cursor-pointer flex justify-start items-center gap-6 px-8`} onClick={() => router.push('/transfer')}>
+                <Image src={upArrow} alt="transfer" className={`${showTopup ? 'block' : router.pathname.split('/')[1] === 'transfer' ? "hidden" : "block"} w-7 h-7`} />
+                <Image src={upArrowActive} alt="transfer" className={`${showTopup ? 'hidden' : router.pathname.split('/')[1] === 'transfer' ? "block" : "hidden"} w-7 h-7`} />
+                <p className={`${showTopup ? 'text-dark' : router.pathname.split('/')[1] === 'transfer' ? 'text-primary' : 'text-dark'} text-lg opacity-80`}>Transfer</p>
             </div>
             <div className={`${showTopup ? 'border-l-4 border-solid border-l-primary' : 'border-none'} cursor-pointer flex justify-start items-center gap-6 px-8`} onClick={topupHandler}>
                 <Image src={plusIcon} alt="topup" className={`${showTopup ? "hidden" : "block"} w-7 h-7`} />

@@ -2,6 +2,7 @@ import Image from "next/image"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useRouter } from "next/router"
 
 import Header from "@/components/Header"
 import Sidebar from "@/components/Sidebar"
@@ -11,7 +12,6 @@ import upIcon from "../../assets/icons/arrow-up-accent.svg"
 import plusIcon from "../../assets/icons/plus-accent.svg"
 import arrowIncome from "../../assets/icons/arrow-income.svg"
 import arrowExpense from "../../assets/icons/arrow-expense.svg"
-import avatarExmp from "../../assets/avatars/1.png"
 import { profileAction } from "@/redux/slice/profile"
 import Loader from "@/components/Loader"
 import TopUp from "@/components/Topup"
@@ -20,8 +20,9 @@ const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [dataDashboard, setDataDashboard] = useState({})
     const [dataHistory, setDataHistory] = useState([])
-    
+    const [showTopup, setShowTopup] = useState(false)
 
+    const router = useRouter()
     const id = useSelector((state) => state.userData.id)
     const token = useSelector((state) => state.userData.token)
     const phoneNumber = useSelector((state) => state.profile.profile.noTelp)
@@ -48,7 +49,7 @@ const Dashboard = () => {
             }).then(res => setDataDashboard(res.data.data))
                 .catch(error => console.log(error))
 
-            const urlHistory = `${process.env.NEXT_PUBLIC_FAZZPAY_API}//transaction/history?limit=4`
+            const urlHistory = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/transaction/history?page=1&limit=4`
             axios.get(urlHistory, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -57,8 +58,10 @@ const Dashboard = () => {
         }
         return () => { getData = false }
     }, [id])
-    
 
+    const topupHandler = () => {
+        showTopup ? setShowTopup(false) : setShowTopup(true)
+    }
 
     const { listIncome, listExpense } = dataDashboard
 
@@ -87,17 +90,16 @@ const Dashboard = () => {
                         </div>
 
                         <div className="flex flex-col gap-4">
-                            <div className="bg-white/20 hover:bg-inherit cursor-pointer flex justify-center items-center gap-3 py-4 px-7 border border-solid border-white rounded-xl">
+                            <div className="bg-white/20 hover:bg-inherit cursor-pointer flex justify-center items-center gap-3 py-4 px-7 border border-solid border-white rounded-xl" onClick={() => router.push('/transfer')}>
                                 <Image src={upIcon} alt="transfer" />
                                 <p className="text-white text-lg font-bold">Transfer</p>
                             </div>
-                            <div className="bg-white/20 hover:bg-inherit cursor-pointer flex justify-center items-center gap-3 py-4 px-7 border border-solid border-white rounded-xl">
-                                <Image src={plusIcon} alt="transfer" />
+                            <div className="bg-white/20 hover:bg-inherit cursor-pointer flex justify-center items-center gap-3 py-4 px-7 border border-solid border-white rounded-xl" onClick={() => setShowTopup(true)}>
+                                <Image src={plusIcon} alt="topup" />
                                 <p className="text-white text-lg font-bold">Top Up</p>
                             </div>
                         </div>
-
-
+                        {!dataDashboard && <Loader />}
                     </section>
                     <section className="mt-5 flex gap-5">
                         <section className="bg-white p-8 rounded-xl w-1/2 shadow-lg">
@@ -125,23 +127,32 @@ const Dashboard = () => {
                                         </div>
                                     )
                                 })}
+                                {!dataDashboard && <Loader />}
                             </div>
                         </section>
-                        <section className="w-2/4 bg-white p-8 rounded-xl shadow-lg">
+                        <section className="w-2/4 bg-white p-8 rounded-xl shadow-lg cursor-pointer" onClick={() => router.push('/dashboard/history?page=1&filter=WEEK')}>
                             <p className="text-dark text-lg font-bold pb-10">Transaction History</p>
-                            <div>
-                                <div className="flex justify-between items-center">
-                                    <div className="flex gap-4 items-center">
-                                        <div className="w-14 h-14 overflow-hidden rounded-lg">
-                                            <Image src={avatarExmp} alt="avatar" className="object-cover" />
+                            <div className="flex flex-col justify-center items-center gap-10">
+                                {dataHistory.map((data, i) => {
+                                    return (
+                                        <div className="flex justify-between items-center w-full" key={i}>
+                                            <div className="flex gap-4 items-center">
+                                                <div className="w-14 h-14 overflow-hidden rounded-lg relative">
+                                                    <Image src={`${process.env.NEXT_PUBLIC_AVATAR}${data.image}`} alt="avatar" className="object-cover" fill />
+                                                </div>
+                                                <div>
+                                                    <p className="font-bold text-[#4D4B57] pb-2">{data.fullName}</p>
+                                                    <p className="text-[#7A7886] text-sm">{data.type === 'send' ? 'Transfer' : data.type === 'accept' ? 'Accept' : data.type === 'topup' && 'Topup'}</p>
+                                                </div>
+                                            </div>
+
+                                            <p className={`${data.type === 'accept' ? 'block ' : 'hidden'} ${data.status === 'pending' ? 'text-dark/50' : 'text-[#1ec15f]'} font-bold`}>+Rp{data.amount}</p>
+                                            <p className={`${data.type === 'topup' ? 'block ' : 'hidden'} ${data.status === 'pending' ? 'text-dark/50' : 'text-[#1ec15f]'} font-bold`}>+Rp{data.amount}</p>
+                                            <p className={`${data.type === 'send' ? 'block ' : 'hidden'} ${data.status === 'pending' ? 'text-dark/50' : 'text-error'} font-bold`}>-Rp{data.amount}</p>
                                         </div>
-                                        <div>
-                                            <p className="font-bold text-[#4D4B57] pb-2">Samuel Suhi</p>
-                                            <p className="text-[#7A7886] text-sm">Accept</p>
-                                        </div>
-                                    </div>
-                                    <p className="text-[#1EC15F] font-bold">+Rp50.000,-</p>
-                                </div>
+                                    )
+                                })}
+
                             </div>
                         </section>
                     </section>
@@ -149,7 +160,7 @@ const Dashboard = () => {
                 </section>
             </main>
             <Footer />
-            
+            <TopUp show={showTopup} showHandler={topupHandler} />
         </body>
     )
 }
