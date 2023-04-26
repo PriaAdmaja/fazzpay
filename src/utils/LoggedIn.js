@@ -1,13 +1,13 @@
 import { useRouter } from "next/router"
 import { useSelector } from "react-redux"
 
-const authCheck = (WrappedComponent) => {
+const loggedIn = (WrappedComponent) => {
     const Auth = (props) => {
         const router = useRouter()
 
         const {token} = useSelector(state => state.userData)
-        if(!token) {
-            router.push('/auth/login')
+        if(token) {
+            router.push('/dashboard')
             return
         }
         return <WrappedComponent {...props} />
@@ -22,4 +22,4 @@ const authCheck = (WrappedComponent) => {
     return Auth
 }
 
-export default authCheck
+export default loggedIn

@@ -17,6 +17,7 @@ import eyeCrossed from "../../assets/icons/eye-crossed.svg"
 import Loader from "@/components/Loader"
 import Toast from "@/components/Toast"
 import { userDataAction } from "@/redux/slice/userData"
+import loggedIn from "@/utils/LoggedIn"
 
 const Login = () => {
     const [email, setEmail] = useState(null)
@@ -113,4 +114,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default loggedIn( Login)

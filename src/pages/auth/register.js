@@ -15,6 +15,7 @@ import user from "../../assets/icons/user.svg"
 import userFilled from "../../assets/icons/user-filled.svg"
 import eye from "../../assets/icons/eye.svg"
 import eyeCrossed from "../../assets/icons/eye-crossed.svg"
+import loggedIn from "@/utils/LoggedIn"
 
 const Register = () => {
     const [email, setEmail] = useState(null)
@@ -124,4 +125,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default loggedIn( Register)

@@ -42,7 +42,7 @@ const Profile = () => {
             })
             dispatch(userDataAction.clearData())
             dispatch(profileAction.clearData())
-            router.push('/auth/login')
+            router.push('/')
         } catch (error) {
             console.log(error);
 

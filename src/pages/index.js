@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
 
 import bgLanding from "../assets/background/landpagebg.svg"
 import sample from '../../public/sample2.webp'
@@ -15,11 +14,11 @@ import download from "../assets/icons/download.svg"
 import avatarSample from "../assets/avatars/1.png"
 
 import arrowLeft from "../assets/icons/arrow-left.svg"
+import loggedIn from '@/utils/LoggedIn'
 
-export default function Home() {
+const Home = () => {
   const router = useRouter()
-  const token = useSelector((state) => state.userData.token)
-  token && router.push('/dashboard')
+  
   return (
     <main className='bg-[#FAFCFF]'>
       <header className='bg-primary relative overflow-hidden'>
@@ -150,3 +149,5 @@ export default function Home() {
 
   )
 }
+
+export default loggedIn( Home)
