@@ -104,7 +104,7 @@ const Login = () => {
                         <button type="button" className={`${email && password ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} onClick={generateLogin}>Login</button>
                         <div className={`${email && password ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Login</div>
                     </div>
-                    <p className="text-center pt-6 lg:pt-10 text-dark text-sm md:text-base">Dont have an account? Let's <Link href={'/auth/register'} className="text-primary">Sign Up</Link></p>
+                    <p className="text-center pt-6 lg:pt-10 text-dark text-sm md:text-base">Dont have an account? Let&apos;s <Link href={'/auth/register'} className="text-primary">Sign Up</Link></p>
                 </section>
                 {isLoading && <Loader />}
             </main>

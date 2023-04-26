@@ -115,7 +115,7 @@ const Register = () => {
                         <button type="button" className={`${email && password && firstname && lastname ? 'block' : 'hidden'} bg-primary text-white font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg hover:opacity-80`} onClick={register}>Sign Up</button>
                         <div className={`${email && password && firstname && lastname ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Sign Up</div>
                     </div>
-                    <p className="text-center pt-4 lg:pt-6 text-dark text-sm md:text-base">Already have an account? Let's <Link href={'/auth/login'} className="text-primary">Login</Link></p>
+                    <p className="text-center pt-4 lg:pt-6 text-dark text-sm md:text-base">Already have an account? Let&apos;s <Link href={'/auth/login'} className="text-primary">Login</Link></p>
                 </section>
                 {isLoading && <Loader />}
             </main>
