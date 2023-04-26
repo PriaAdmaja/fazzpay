@@ -24,7 +24,7 @@ export default function Home() {
         <section className='px-[150px]'>
           <nav className='flex  py-16 items-center'>
             <p className='text-white font-bold mr-auto text-3xl'>FazzPay</p>
-            <div className='flex gap-7'>
+            <div className='flex gap-7 z-50'>
               <button type='button' className='py-4 px-9 text-white border border-white border-solid rounded-xl cursor-pointer text-lg font-semibold' onClick={() => router.push('/auth/login')}>Login</button>
               <button type='button' className='py-4 px-9 text-primary bg-white rounded-xl cursor-pointer text-lg font-semibold' onClick={() => router.push('/auth/register')}>Sign Up</button>
             </div>
@@ -37,7 +37,7 @@ export default function Home() {
                 oftenly wasting much of your times.</p>
               <button type='button' className='py-4 px-11 bg-white rounded-xl text-lg font-semibold text-primary w-1/3'>Try It Free</button>
             </div>
-            <Image src={sample} alt='sample' className='w-1/2 absolute right-0 -top-20' />
+            <Image src={sample} alt='sample' className='w-1/2 absolute right-0 -top-20 ' />
           </section>
         </section>
       </header>
