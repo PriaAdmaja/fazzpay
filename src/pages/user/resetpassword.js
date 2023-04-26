@@ -24,14 +24,13 @@ const ResetPasword = () => {
     const sendReset = async () => {
         try {
             setIsLoading(true)
-            const linkDirect = `http://localhost:3000/user/newpassword`
+            const linkDirect = `https://fazzpay-chi.vercel.app/user/newpassword`
             const body = {
                 email,
                 linkDirect
             }
             const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/auth/forgot-password`
             const result = await axios.post(url, body)
-            console.log(result);
             setShowToast(true)
             setToastMsg(result.data.msg)
             setToastType('success')
