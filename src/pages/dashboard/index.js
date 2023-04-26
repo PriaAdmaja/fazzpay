@@ -16,8 +16,6 @@ import { profileAction } from "@/redux/slice/profile"
 import Loader from "@/components/Loader"
 import TopUp from "@/components/Topup"
 
-import { AuthCheck } from "@/utils/authCheck"
-
 const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [dataDashboard, setDataDashboard] = useState({})

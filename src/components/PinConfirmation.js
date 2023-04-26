@@ -90,7 +90,7 @@ const PinConfirmation = ({ show, showHandler }) => {
 
     return (
         <section className={`${show ? 'flex' : 'hidden'} fixed bg-black/10 h-screen w-full left-0 top-0 z-50 justify-center items-center`}>
-            <div className="bg-white rounded-2xl p-9 w-1/2 relative ">
+            <div className="bg-white rounded-2xl p-9 w-[90%] md:w-2/3 lg:w-1/2 relative ">
                 <p className="text-dark text-lg font-bold pb-5">Enter PIN to Transfer</p>
                 <p className="text-dark/60">Enter your 6 digits PIN for confirmation to continue transferring money. </p>
                 <div className="flex justify-center items-center gap-3 md:gap-6 py-14">

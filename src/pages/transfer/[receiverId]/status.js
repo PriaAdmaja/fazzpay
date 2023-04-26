@@ -55,9 +55,9 @@ const Status = () => {
     return (
         <>
             <Header />
-            <main className="flex gap-4 bg-bgPrimary px-[150px] py-10">
+            <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
-                <section className=" rounded-xl bg-white w-3/4 p-8 shadow-xl min-h-[678px]">
+                <section className=" rounded-xl bg-white w-full md:w-2/3 lg:w-3/4 p-8 shadow-xl min-h-[678px]">
                     <section className="pt-7 pb-[55px]">
                         <div className={`${transactionInfo.status === 'success' ? 'block' : 'hidden'}`}>
                             <div className="w-[70px] h-[70px] bg-[#1EC15F] rounded-full flex justify-center items-center mx-auto">
@@ -76,11 +76,11 @@ const Status = () => {
                     <div className="flex flex-col gap-5">
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Amount</p>
-                            <p className="font-bold text-xl text-[#514F5B]">Rp{transactionInfo.amount}</p>
+                            <p className="font-bold text-xl text-[#514F5B]">Rp{transactionInfo.amount?.toLocaleString()}</p>
                         </div>
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Balance Left</p>
-                            <p className="font-bold text-xl text-[#514F5B]">Rp{transactionInfo.balance}</p>
+                            <p className="font-bold text-xl text-[#514F5B]">Rp{transactionInfo.balance?.toLocaleString()}</p>
                         </div>
                         <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Date & Time</p>
@@ -105,12 +105,12 @@ const Status = () => {
                         </div>
                     </div>
                     <div className="mt-[100px] flex justify-end items-center gap-5">
-                        <button type="button" className={`bg-primaryOpct text-primary justify-center items-center gap-5 py-4 px-10 rounded-xl ${transactionInfo.status === 'success' ? 'flex' : 'hidden'}`}>
+                        <button type="button" className={`bg-primaryOpct text-primary justify-center items-center gap-3 sm:gap-5 py-3 sm:py-4 px-5 sm:px-7 lg:px-10 rounded-xl ${transactionInfo.status === 'success' ? 'flex' : 'hidden'}`}>
                             <Image src={download} alt="download" />
-                            <p className="text-lg font-bold">Download PDF</p>
+                            <p className="text-base lg:text-lg font-medium sm:font-semibold lg:font-bold">Download PDF</p>
                         </button>
-                        <button type="button" className={`bg-primary rounded-xl py-4 px-10 text-white text-lg font-bold ${transactionInfo.status === 'success' ? 'block' : 'hidden'}`} onClick={clearTransaction}>Back To Home</button>
-                        <button type="button" className={`${transactionInfo.status === 'success' ? 'hidden' : 'block'} bg-primary rounded-xl py-4 px-10 text-white text-lg font-bold`} onClick={() => setShowPin(true)}>Try Again</button>
+                        <button type="button" className={`bg-primary rounded-xl py-3 sm:py-4 px-5 sm:px-6 lg:px-10 text-white text-base lg:text-lg font-medium sm:font-semibold lg:font-bold ${transactionInfo.status === 'success' ? 'block' : 'hidden'}`} onClick={clearTransaction}>Back To Home</button>
+                        <button type="button" className={`${transactionInfo.status === 'success' ? 'hidden' : 'block'} bg-primary rounded-xl py-2 lg:py-4 px-6 lg:px-10 text-white text-base lg:text-lg font-medium lg:font-bold`} onClick={() => setShowPin(true)}>Try Again</button>
                     </div>
                     {isLoading && <Loader />}
                 </section>
