@@ -11,6 +11,9 @@ import hnm from "../assets/logo/h&m.svg"
 import phone from "../assets/icons/phone-filled.svg"
 import lock from "../assets/icons/lock-filled.svg"
 import download from "../assets/icons/download.svg"
+import avatarSample from "../assets/avatars/1.png"
+
+import arrowLeft from "../assets/icons/arrow-left.svg"
 
 export default function Home() {
   const router = useRouter()
@@ -106,10 +109,40 @@ export default function Home() {
         </div>
 
       </section>
-      <section className='py-[120px] px-150px]'>
+      <section className='py-[120px] px-[150px]'>
         <h2 className='font-bold text-6xl text-dark text-center'>What Users are <span className='text-primary'>Saying.</span></h2>
         <p className='text-lg w-1/2 text-center mx-auto pt-8'>We have some great features from the application and it’s totally free to use by all users around the world.</p>
+        <section className='w-full pt-[60px] relative'>
+          <div className='w-4/5 p-14 mx-auto bg-white shadow-xl'>
+            <div className='overflow-hidden rounded-xl w-[120px] h-[120px] mx-auto'>
+              <Image src={avatarSample} alt='avatar' className='object-cover' />
+            </div>
+            <p className='text-center pt-8 pb-2'>Alex Hansinburg</p>
+            <p className='text-center'>Designer</p>
+            <p className='text-center pt-14'>“This is the most outstanding app that I’ve ever try in my live, this app is such an amazing masterpiece and it’s suitable for you who is bussy with their bussiness and must transfer money to another person aut there. Just try this app and see the power!”</p>
+          </div>
+          <div className='flex justify-between w-full items-center absolute top-1/2'>
+            <div className='w-[60px] h-[60px] flex justify-center items-center bg-white rounded-xl shadow-md cursor-pointer'>
+              <Image src={arrowLeft} alt='arrow' className='rotate-180' />
+            </div>
+            <div className='w-[60px] h-[60px] flex justify-center items-center bg-white rounded-xl shadow-md cursor-pointer'>
+              <Image src={arrowLeft} alt='arrow' />
+            </div>
+          </div>
+        </section>
       </section>
+      <footer className='bg-primary py-20 px-[150px]'>
+        <section className='w-1/3'>
+          <p className='text-4xl text-white font-semibold'>FazzPay</p>
+          <p className='text-lg text-white pt-8 pb-12'>Simplify financial needs and saving much time in banking needs with one single app.</p>
+        </section>
+        <div className='w-full border-t border-solid border-white flex justify-center items-center pt-7'>
+          <p className='text-white mr-auto relative'>2020 FazzPay. All right reserved.</p>
+          <p className='text-white font-medium'>082228316811</p>
+          <p className='text-white font-medium pl-10'>contact@fazzpay.com</p>
+
+        </div>
+      </footer>
     </main>
 
   )
