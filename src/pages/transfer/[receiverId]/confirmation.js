@@ -10,6 +10,7 @@ import defaultAvatar from "../../../assets/avatars/default-avatar.jpg"
 import PinConfirmation from "@/components/PinConfirmation"
 import Loader from "@/components/Loader"
 import { useSelector } from "react-redux"
+import authCheck from "@/utils/AuthCheck"
 
 const Confirmation = () => {
     const [showPin, setShowPin] = useState(false)
@@ -87,4 +88,4 @@ const Confirmation = () => {
     )
 }
 
-export default Confirmation
+export default authCheck( Confirmation)

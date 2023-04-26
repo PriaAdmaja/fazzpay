@@ -14,7 +14,7 @@ import lock from "../../assets/icons/lock.svg"
 import lockFilled from "../../assets/icons/lock-filled.svg"
 import eye from "../../assets/icons/eye.svg"
 import eyeCrossed from "../../assets/icons/eye-crossed.svg"
-
+import authCheck from "@/utils/AuthCheck"
 
 const ChangePassword = () => {
     const [curPassword, setCurPassword] = useState(null)
@@ -132,4 +132,4 @@ const ChangePassword = () => {
     )
 }
 
-export default ChangePassword
+export default authCheck( ChangePassword)

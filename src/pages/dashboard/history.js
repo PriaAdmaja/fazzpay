@@ -9,6 +9,7 @@ import Header from "@/components/Header"
 import Sidebar from "@/components/Sidebar"
 import Loader from "@/components/Loader"
 
+import authCheck from "@/utils/AuthCheck"
 
 const History = () => {
     const [buttonText, setButtonText] = useState('-- Select Filter --')
@@ -119,4 +120,4 @@ const History = () => {
     )
 }
 
-export default History
+export default authCheck( History)

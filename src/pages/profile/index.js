@@ -15,6 +15,7 @@ import rightArrow from "../../assets/icons/arrow-left.svg"
 import { userDataAction } from "@/redux/slice/userData"
 import { profileAction } from "@/redux/slice/profile"
 import Toast from "@/components/Toast"
+import authCheck from "@/utils/AuthCheck"
 
 const Profile = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -129,4 +130,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default authCheck( Profile)

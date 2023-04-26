@@ -13,6 +13,7 @@ import pen from "../../../assets/icons/edit-2.svg"
 import penFilled from "../../../assets/icons/edit-2-filled.svg"
 import Loader from "@/components/Loader"
 import { transferInfoAction } from "@/redux/slice/transferInfo"
+import authCheck from "@/utils/AuthCheck"
 
 const ReceiverId = () => {
     const [totalTransfer, setTotalTransfer] = useState(null)
@@ -89,4 +90,4 @@ const ReceiverId = () => {
     )
 }
 
-export default ReceiverId
+export default authCheck( ReceiverId)

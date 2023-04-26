@@ -16,17 +16,20 @@ import { profileAction } from "@/redux/slice/profile"
 import Loader from "@/components/Loader"
 import TopUp from "@/components/Topup"
 
+import authCheck from "@/utils/AuthCheck"
+
 const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [dataDashboard, setDataDashboard] = useState({})
     const [dataHistory, setDataHistory] = useState([])
     const [showTopup, setShowTopup] = useState(false)
 
-    const router = useRouter()
     const id = useSelector((state) => state.userData.id)
+    const router = useRouter()
     const token = useSelector((state) => state.userData.token)
     const phoneNumber = useSelector((state) => state.profile.profile.noTelp)
     const dispatch = useDispatch()
+
 
     useEffect(() => {
         let getData = true
@@ -166,4 +169,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default authCheck( Dashboard)

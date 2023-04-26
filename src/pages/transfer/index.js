@@ -11,6 +11,7 @@ import Sidebar from "@/components/Sidebar"
 import searchIcon from "../../assets/icons/search.svg"
 import defaultAvatar from "../../assets/avatars/default-avatar.jpg"
 import Loader from "@/components/Loader"
+import authCheck from "@/utils/AuthCheck"
 
 const Transfer = () => {
     const [userList, setUserList] = useState([])
@@ -100,4 +101,4 @@ const Transfer = () => {
     )
 }
 
-export default Transfer
+export default authCheck( Transfer)

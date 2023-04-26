@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Sidebar from "@/components/Sidebar"
+import authCheck from "@/utils/AuthCheck"
 
 const PersonalInfo = () => {
     const profile = useSelector(state => state.profile.profile)
@@ -44,4 +45,4 @@ const PersonalInfo = () => {
     )
 }
 
-export default PersonalInfo
+export default authCheck( PersonalInfo)

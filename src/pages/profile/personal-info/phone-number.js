@@ -13,6 +13,7 @@ import phoneFilled from "../../../assets/icons/phone-filled.svg"
 import Loader from "@/components/Loader"
 import Toast from "@/components/Toast"
 import { profileAction } from "@/redux/slice/profile"
+import authCheck from "@/utils/AuthCheck"
 
 const PhoneNumber = () => {
     const [phoneNumber, setPhoneNumber] = useState(null)
@@ -82,4 +83,4 @@ const PhoneNumber = () => {
     )
 }
 
-export default PhoneNumber
+export default authCheck( PhoneNumber)

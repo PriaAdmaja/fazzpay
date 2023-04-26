@@ -15,6 +15,7 @@ import { transactionStatusAction } from "@/redux/slice/transactionStatus"
 import { transferInfoAction } from "@/redux/slice/transferInfo"
 import { useRouter } from "next/router"
 import PinConfirmation from "@/components/PinConfirmation"
+import authCheck from "@/utils/AuthCheck"
 
 const Status = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -121,4 +122,4 @@ const Status = () => {
     )
 }
 
-export default Status
+export default authCheck( Status)

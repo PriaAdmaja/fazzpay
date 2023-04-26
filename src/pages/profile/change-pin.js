@@ -9,6 +9,8 @@ import Sidebar from "@/components/Sidebar"
 import Loader from "@/components/Loader"
 import Toast from "@/components/Toast"
 
+import authCheck from "@/utils/AuthCheck"
+
 const ChangePin = () => {
     const [pin1, setPin1] = useState(null)
     const [pin2, setPin2] = useState(null)
@@ -173,4 +175,4 @@ const ChangePin = () => {
     )
 }
 
-export default ChangePin
+export default authCheck( ChangePin)

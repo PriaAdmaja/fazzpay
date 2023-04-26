@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 import Aside from "@/components/Aside"
 import check from "../../assets/icons/check.svg"
 import Loader from "@/components/Loader"
+import authCheck from "@/utils/AuthCheck"
 
 const CreatePin = () => {
     const [pin1, setPin1] = useState(null)
@@ -120,4 +121,4 @@ const CreatePin = () => {
     )
 }
 
-export default CreatePin
+export default authCheck( CreatePin)
