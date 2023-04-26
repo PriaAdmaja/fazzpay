@@ -103,12 +103,12 @@ const ChangePin = () => {
     return (
         <>
             <Header />
-            <main className="flex gap-4 bg-bgPrimary px-[150px] py-10">
+            <main className="flex gap-4 flex-col md:flex-row bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
-                <section className={`p-8 rounded-xl bg-white w-3/4 shadow-xl ${currentPin === true ? 'hidden' : 'block'}`}>
+                <section className={`p-8 rounded-xl bg-white w-full md:w-3/4 shadow-xl ${currentPin === true ? 'hidden' : 'block'}`}>
                     <h1 className="font-bold text-lg pb-6 text-dark">Change PIN</h1>
-                    <p className="pb-10 text-[#7a7886] w-1/2">Enter your current 6 digits Fazzpay PIN below to continue to the next steps.</p>
-                    <div className="w-1/2 mx-auto pb-[200px]">
+                    <p className="pb-10 text-[#7a7886] w-full md:w-2/3 lg:w-1/2">Enter your current 6 digits Fazzpay PIN below to continue to the next steps.</p>
+                    <div className="w-[90%] md:w-2/3 lg:w-1/2 mx-auto pb-[100px] md:pb-[200px]">
                         <div className="flex justify-center items-center gap-3 ">
                             <div className={`w-10 md:w-12 lg:w-14 h-12 md:h-14 lg:h-16 flex justify-center items-center ${pin1 ? 'border-primary' : 'border-accent'} border border-solid rounded-lg`}>
                                 <input type="text" name="pin1" maxLength={1} className={`w-3/4 h-3/4 text-center outline-none ${pin1 ? 'border-none' : 'border-b'}  border-solid border-b-accent text-base md:text-3xl font-bold`} onChange={(e) => pinHandler(e)} />
@@ -135,10 +135,10 @@ const ChangePin = () => {
                         </div>
                     </div>
                 </section>
-                <section className={`p-8 rounded-xl bg-white w-3/4 shadow-xl ${currentPin === true ? 'block' : 'hidden'}`}>
+                <section className={`p-8 rounded-xl bg-white w-full md:w-3/4 shadow-xl ${currentPin === true ? 'block' : 'hidden'}`}>
                     <h1 className="font-bold text-lg pb-6 text-dark">Change PIN</h1>
-                    <p className="pb-10 text-[#7a7886] w-1/2">Type your new 6 digits security PIN to use in Fazzpay.</p>
-                    <div className="w-1/2 mx-auto pb-[200px]">
+                    <p className="pb-10 text-[#7a7886] w-full md:w-2/3 lg:w-1/2">Type your new 6 digits security PIN to use in Fazzpay.</p>
+                    <div className="w-[90%] md:w-2/3 lg:w-1/2 mx-auto pb-[100px] md:pb-[200px]">
                         <div className="flex justify-center items-center gap-3 ">
                             <div className={`w-10 md:w-12 lg:w-14 h-12 md:h-14 lg:h-16 flex justify-center items-center ${pin1 ? 'border-primary' : 'border-accent'} border border-solid rounded-lg`}>
                                 <input type="text" name="pin1" maxLength={1} className={`w-3/4 h-3/4 text-center outline-none ${pin1 ? 'border-none' : 'border-b'}  border-solid border-b-accent text-base md:text-3xl font-bold`} onChange={(e) => pinHandler(e)} />

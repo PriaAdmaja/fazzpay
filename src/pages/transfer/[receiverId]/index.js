@@ -69,8 +69,8 @@ const ReceiverId = () => {
                     </div>
                     <p className="pt-10 w-1/2 text-[#7A7886]">Type the amount you want to transfer and then
                         press continue to the next steps.</p>
-                    <input type="number" min='0' placeholder="0.00" className={`text-4xl mt-16 mb-10 text-center w-full outline-none font-bold text-primary`} onChange={(e) => setTotalTransfer(e.target.value)} />
-                    <p className="font-bold text-dark text-center">Rp{balance} Available</p>
+                    <input type="number" min='0' placeholder="0" className={`text-4xl mt-16 mb-10 text-center w-full outline-none font-bold text-primary`} onChange={(e) => setTotalTransfer(e.target.value)} />
+                    <p className="font-bold text-dark text-center">Rp{balance.toLocaleString()} Available</p>
                     <div className={`${notes ? 'border-primary' : 'border-[rgba(169,169,169,0.6)]'} border-b-[1.5px] border-solid flex justify-start gap-4 w-1/2 mx-auto pb-4 mt-16`}>
                         <Image src={pen} alt="notes" className={`${notes ? 'hidden' : 'block'} w-5 h-auto`} />
                         <Image src={penFilled} alt="notes" className={`${notes ? 'block' : 'hidden'} w-5 h-auto`} />

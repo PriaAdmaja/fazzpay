@@ -89,12 +89,12 @@ const ChangePassword = () => {
     return (
         <>
             <Header />
-            <main className="flex gap-4 bg-bgPrimary px-[150px] py-10">
+            <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
-                <secton className="p-8 rounded-xl bg-white w-3/4 shadow-xl">
+                <section className="p-8 rounded-xl bg-white w-full md:w-3/4 shadow-xl">
                     <h1 className="font-bold text-lg pb-6 text-dark">Change Password</h1>
-                    <p className="pb-10 text-[#7a7886] w-1/2">You must enter your current password and then type your new password twice.</p>
-                    <div className="w-1/2 mx-auto">
+                    <p className="pb-10 text-[#7a7886] w-full md:w-2/3 lg:w-1/2">You must enter your current password and then type your new password twice.</p>
+                    <div className="w-[90%] md:w-2/3 lg:w-1/2 mx-auto">
                         <div className="flex flex-col gap-10 md:gap-12 lg:gap-16">
                             <div className={`flex justify-start items-center gap-3 border-b-[1.5px] border-solid ${!curPassword ? 'border-b-accent' : 'border-b-primary'}  pb-4`}>
                                 <Image src={lock} alt="lock" className={`w-5 h-auto ${curPassword ? 'hidden' : 'block'}`} />
@@ -123,7 +123,7 @@ const ChangePassword = () => {
                             <div className={`${curPassword && newPassword && reNewPassword ? 'hidden' : 'block'} bg-disabled text-txtDisabled font-bold text-lg w-full py-3 md:py-4 text-center rounded-lg select-none`}>Change Password</div>
                         </div>
                     </div>
-                </secton>
+                </section>
             </main>
             <Footer />
             {isLoading && <Loader />}

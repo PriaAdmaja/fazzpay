@@ -87,9 +87,9 @@ const Profile = () => {
     return (
         <>
             <Header />
-            <main className="flex gap-4 bg-bgPrimary px-[150px] py-10">
+            <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
-                <section className="flex flex-col justify-center items-center rounded-xl bg-white w-3/4 py-12 shadow-xl">
+                <section className="flex flex-col justify-center items-center rounded-xl bg-white w-full md:w-3/4 py-8 md:py-12 shadow-xl">
                     <div className="flex flex-col gap-3">
                         <div className="w-20 h-20 rounded-lg overflow-hidden relative">
                             <Image src={image ? avatar : defaultAvatar} alt="avatar" className="object-cover" fill priority /> :
@@ -102,8 +102,8 @@ const Profile = () => {
                         </label>
                     </div>
                     <p className="text-2xl font-bold text-dark pt-4 pb-2">{firstName} {lastName}</p>
-                    <p className="pb-12">{noTelp}</p>
-                    <div className="w-1/2 flex flex-col justify-center items-center gap-5">
+                    <p className="pb-8 md:pb-12">{noTelp}</p>
+                    <div className="w-[90%] md:w-1/2 flex flex-col justify-center items-center gap-5">
                         <div className="flex items-center justify-between w-full bg-[#e5e8ed] py-3 px-4 rounded-xl cursor-pointer" onClick={() => router.push('/profile/personal-info')}>
                             <p>Personal Information</p>
                             <Image src={rightArrow} alt="arrow" />

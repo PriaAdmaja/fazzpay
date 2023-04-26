@@ -31,10 +31,10 @@ const TopUp = ({ show, showHandler }) => {
     }
     return (
         <section className={`${show ? 'flex' : 'hidden'} fixed bg-black/10 h-screen w-full left-0 top-0 z-50 justify-center items-center`}>
-            <div className="bg-white rounded-2xl p-9 w-1/2 relative ">
+            <div className="bg-white rounded-2xl p-9 w-[90%] sm:w-3/4 md:w-1/2 relative ">
                 <p className="text-dark text-lg font-bold pb-5">Topup</p>
                 <p className="text-dark/60">Enter the amount of money, and click submit</p>
-                <div className="w-full p-3 mt-11 mb-16 border border-solid border-[rgba(169,169,169,0.6)] rounded-xl flex justify-center items-center">
+                <div className="w-full p-3 mt-6 md:mt-11  mb-10 md:mb-16 border border-solid border-[rgba(169,169,169,0.6)] rounded-xl flex justify-center items-center">
                     <input type="number" className="text-center outline-none border-b border-solid border-[rgba(169,169,169, .4)] w-3/5 text-dark font-bold text-lg" onChange={(e) => setAmount(e.target.value)} />
                 </div>
                 <div className="flex justify-end">

@@ -72,13 +72,13 @@ const History = () => {
     return (
         <>
             <Header />
-            <main className="flex gap-4 bg-bgPrimary px-[150px] py-10">
+            <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
-                <section className="flex flex-col justify-start items-center rounded-xl bg-white w-3/4 p-8 shadow-xl min-h-[678px] relative">
+                <section className="flex flex-col justify-start items-center rounded-xl bg-white w-full md:w-3/4 p-8 shadow-xl min-h-[550px] md:min-h-[650px] relative">
                     <div className="flex justify-between items-start w-full pb-9">
                         <p className="font-bold text-lg text-dark">Transaction History</p>
-                        <div className="relative w-1/4">
-                            <button type="button" className="px-7 py-2 bg-dark/10 text-sm rounded-lg w-full" onClick={() => showFilter ? setShowFilter(false) : setShowFilter(true)}>{buttonText}</button>
+                        <div className="relative w-2/5 lg:w-1/3 xl:w-1/4">
+                            <button type="button" className=" px-3 md:px-7 py-1 md:py-2 bg-dark/10 text-xs sm:text-sm rounded-lg w-full" onClick={() => showFilter ? setShowFilter(false) : setShowFilter(true)}>{buttonText}</button>
                             <div className={`absolute bg-gray-200 ${showFilter ? 'flex' : 'hidden'} flex-col w-full top-10 rounded-md overflow-hidden`}>
                                 <button type="button" className="hover:bg-gray-300 py-1 text-sm" onClick={() => selectFilter('-- Week --')}>Week</button>
                                 <button type="button" className="hover:bg-gray-300 py-1 text-sm" onClick={() => selectFilter('-- Month --')}>Month</button>
@@ -86,7 +86,7 @@ const History = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="w-full flex flex-col gap-10">
+                    <div className="w-full flex flex-col gap-5 md:gap-10">
                         {dataHistory.data?.map((data, i) => {
                             return (
                                 <div className="flex justify-between items-center w-full" key={i}>
