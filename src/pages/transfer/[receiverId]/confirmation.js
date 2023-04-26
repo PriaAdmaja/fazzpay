@@ -43,9 +43,9 @@ const Confirmation = () => {
     return (
         <>
             <Header />
-            <main className="flex gap-4 bg-bgPrimary px-[150px] py-10">
+            <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
-                <section className=" rounded-xl bg-white w-3/4 p-8 shadow-xl min-h-[678px]">
+                <section className=" rounded-xl bg-white w-full md:w-2/3 lg:w-3/4 p-8 shadow-xl min-h-[678px]">
                     <p className="font-bold text-lg text-dark pb-6">Transfer To</p>
                     <div className="flex justify-start items-center gap-5 cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                     <div className="w-12 h-12 rounded-md overflow-hidden relative">
@@ -58,21 +58,21 @@ const Confirmation = () => {
                     </div>
                     <p className="font-bold text-lg text-dark pb-6 pt-10">Details</p>
                     <div className="flex flex-col gap-5">
-                        <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
+                        <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-3 md:p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Amount</p>
-                            <p className="font-bold text-xl text-[#514F5B]">Rp{amount}</p>
+                            <p className="font-bold text-base md:text-xl text-[#514F5B]">Rp{amount}</p>
                         </div>
-                        <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
+                        <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-3 md:p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Balance Left</p>
-                            <p className="font-bold text-xl text-[#514F5B]">Rp{balance}</p>
+                            <p className="font-bold text-base md:text-xl text-[#514F5B]">Rp{balance.toLocaleString()}</p>
                         </div>
-                        <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
+                        <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-3 md:p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Date & Time</p>
-                            <p className="font-bold text-xl text-[#514F5B]">{date.toLocaleString()}</p>
+                            <p className="font-bold text-base md:text-xl text-[#514F5B]">{date.toLocaleString()}</p>
                         </div>
-                        <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
+                        <div className="cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-3 md:p-5 rounded-xl">
                             <p className="text-[#7a7886] pb-2">Notes</p>
-                            <p className="font-bold text-xl text-[#514F5B]">{notes}</p>
+                            <p className="font-bold text-base md:text-xl text-[#514F5B]">{notes}</p>
                         </div>
                     </div>
                     <div className="flex justify-end mt-16">

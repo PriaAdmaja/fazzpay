@@ -42,6 +42,7 @@ const ReceiverId = () => {
     }, [receiverId])
 
     const confirmation = () => {
+        setIsLoading(true)
         const transfer = {
             receiverId,
             amount: totalTransfer,
@@ -49,14 +50,15 @@ const ReceiverId = () => {
         }
         dispatch(transferInfoAction.submitTransfer(transfer))
         router.push(`/transfer/${receiverId}/confirmation`)
+        setIsLoading(false)
     }
 
     return (
         <>
             <Header />
-            <main className="flex gap-4 bg-bgPrimary px-[150px] py-10">
+            <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
-                <section className=" rounded-xl bg-white w-3/4 p-8 shadow-xl min-h-[678px]">
+                <section className=" rounded-xl bg-white w-full md:w-2/3 lg:w-3/4 p-8 shadow-xl min-h-[678px]">
                     <p className="font-bold text-lg text-dark pb-6">Transfer Money</p>
                     <div className="flex justify-start items-center gap-5 cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.1)] p-5 rounded-xl">
                         <div className="w-12 h-12 rounded-md overflow-hidden relative">
@@ -67,11 +69,11 @@ const ReceiverId = () => {
                             <p className="text-sm text-dark opacity-90 text-center">{receiverData?.noTelp}</p>
                         </div>
                     </div>
-                    <p className="pt-10 w-1/2 text-[#7A7886]">Type the amount you want to transfer and then
+                    <p className="pt-10 w-full md:w-2/3 lg:w-1/2 text-[#7A7886]">Type the amount you want to transfer and then
                         press continue to the next steps.</p>
                     <input type="number" min='0' placeholder="0" className={`text-4xl mt-16 mb-10 text-center w-full outline-none font-bold text-primary`} onChange={(e) => setTotalTransfer(e.target.value)} />
                     <p className="font-bold text-dark text-center">Rp{balance.toLocaleString()} Available</p>
-                    <div className={`${notes ? 'border-primary' : 'border-[rgba(169,169,169,0.6)]'} border-b-[1.5px] border-solid flex justify-start gap-4 w-1/2 mx-auto pb-4 mt-16`}>
+                    <div className={`${notes ? 'border-primary' : 'border-[rgba(169,169,169,0.6)]'} border-b-[1.5px] border-solid flex justify-start gap-4 w-full md:w-2/3 lg:w-1/2 mx-auto pb-4 mt-16`}>
                         <Image src={pen} alt="notes" className={`${notes ? 'hidden' : 'block'} w-5 h-auto`} />
                         <Image src={penFilled} alt="notes" className={`${notes ? 'block' : 'hidden'} w-5 h-auto`} />
                         <input type="text" placeholder="Add some notes" className="w-full outline-none font-semibold" onChange={(e) => setNotes(e.target.value)} />
