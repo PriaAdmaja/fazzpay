@@ -24,6 +24,7 @@ const Dashboard = () => {
     const [dataDashboard, setDataDashboard] = useState({})
     const [dataHistory, setDataHistory] = useState([])
     const [showTopup, setShowTopup] = useState(false)
+    const [chartChoosen, setChartChoosen] = useState(null)
 
     const id = useSelector((state) => state.userData.id)
     const router = useRouter()
@@ -128,9 +129,10 @@ const Dashboard = () => {
                                     let height = Math.floor((data.balance / maxValue) * 223)
                                     let hValue = `${height}px`
                                     return (
-                                        <div className="flex flex-col-reverse items-center justify-start gap-4 h-[259px]" key={i}>
-                                            <div className={`w-3 bg-primary rounded-md relative`} style={{ height: `${hValue}` }} >
+                                        <div className="flex flex-col-reverse items-center justify-start gap-4 h-[259px] " key={i}>
+                                            <div className={`w-3 ${chartChoosen === i ? 'bg-[#9DA6B5]' : 'bg-primary'} bg-primary rounded-md relative`} style={{ height: `${hValue}` }} onClick={() => setChartChoosen(i)}>
                                                 <p className="text-[#8F8F8F] text-sm absolute -bottom-6 left-1/2 -translate-x-1/2">{data.day.slice(0, 3)}</p>
+                                                <p className={`absolute -top-20 z-30 rounded-xl bg-white text-primary shadow-lg font-semibold py-3 px-5 left-1/2 -translate-x-1/2 ${chartChoosen === i ? 'block' : 'hidden'}`}>Rp{data.balance.toLocaleString()}</p>
                                             </div>
                                         </div>
                                     )
@@ -173,4 +175,4 @@ const Dashboard = () => {
     )
 }
 
-export default authCheck( Dashboard)
+export default authCheck(Dashboard)
