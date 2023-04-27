@@ -14,6 +14,7 @@ import penFilled from "../../../assets/icons/edit-2-filled.svg"
 import Loader from "@/components/Loader"
 import { transferInfoAction } from "@/redux/slice/transferInfo"
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const ReceiverId = () => {
     const [totalTransfer, setTotalTransfer] = useState(null)
@@ -56,6 +57,9 @@ const ReceiverId = () => {
 
     return (
         <>
+            <Head>
+                <title>FazzPay || Transfer</title>
+            </Head>
             <Header />
             <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
@@ -90,4 +94,4 @@ const ReceiverId = () => {
     )
 }
 
-export default authCheck( ReceiverId)
+export default authCheck(ReceiverId)

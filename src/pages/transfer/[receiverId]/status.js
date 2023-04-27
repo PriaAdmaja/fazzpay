@@ -16,20 +16,21 @@ import { transferInfoAction } from "@/redux/slice/transferInfo"
 import { useRouter } from "next/router"
 import PinConfirmation from "@/components/PinConfirmation"
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const Status = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [receiverData, setReceiverData] = useState({})
     const [showPin, setShowPin] = useState(false)
 
-    const {transactionInfo} = useSelector(state => state.transactionStatus)
-    const {token} = useSelector(state => state.userData)
+    const { transactionInfo } = useSelector(state => state.transactionStatus)
+    const { token } = useSelector(state => state.userData)
     const dispatch = useDispatch()
     const router = useRouter()
-    
+
     useEffect(() => {
         let getData = true
-        if(getData) {
+        if (getData) {
             setIsLoading(true)
             const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/profile/${transactionInfo.receiverId}`
             axios.get(url, {
@@ -38,7 +39,7 @@ const Status = () => {
                 }
             }).then(res => setReceiverData(res.data.data)).catch(err => console.log(err)).finally(() => setIsLoading(false))
         }
-        return () => {getData = false}
+        return () => { getData = false }
     }, [])
 
     const date = new Date()
@@ -55,6 +56,9 @@ const Status = () => {
 
     return (
         <>
+            <Head>
+                <title>FazzPay || Transfer</title>
+            </Head>
             <Header />
             <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
@@ -122,4 +126,4 @@ const Status = () => {
     )
 }
 
-export default authCheck( Status)
+export default authCheck(Status)

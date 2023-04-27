@@ -15,12 +15,16 @@ import avatarSample from "../assets/avatars/1.png"
 
 import arrowLeft from "../assets/icons/arrow-left.svg"
 import loggedIn from '@/utils/LoggedIn'
+import Head from 'next/head'
 
 const Home = () => {
   const router = useRouter()
   
   return (
     <main className='bg-[#FAFCFF]'>
+      <Head>
+        <title>FazzPay</title>
+      </Head>
       <header className='bg-primary relative overflow-hidden'>
         <Image src={bgLanding} alt='background' className='absolute top-10 ' />
         <section className='px-[5%] lg:px-[100px] xl:px-[150px]'>
