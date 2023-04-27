@@ -8,6 +8,7 @@ import Aside from "@/components/Aside"
 import check from "../../assets/icons/check.svg"
 import Loader from "@/components/Loader"
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const CreatePin = () => {
     const [pin1, setPin1] = useState(null)
@@ -75,6 +76,9 @@ const CreatePin = () => {
 
     return (
         <section className="flex justify-center items-center overflow-hidden">
+            <Head>
+                <title>FazzPay | Create PIN</title>
+            </Head>
             <Aside />
             <main className="flex-1 relative bg-primary md:bg-white h-full ">
                 <section className={`py-[5%] px-[10%] m-[5%] md:m-0 bg-white rounded-xl ${pinSuccess ? 'hidden' : 'block'} `}>

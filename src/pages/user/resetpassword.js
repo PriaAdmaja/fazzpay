@@ -45,6 +45,9 @@ const ResetPasword = () => {
 
     return (
         <section className="flex justify-center items-center overflow-hidden">
+            <Head>
+                <title>FazzPay | Reset Password</title>
+            </Head>
             <Aside />
             <main className="flex-1 relative bg-primary md:bg-white ">
                 <section className="py-[5%] px-[10%] m-[5%] md:m-0 bg-white rounded-xl ">

@@ -10,6 +10,7 @@ import eye from "../../../assets/icons/eye.svg"
 import eyeCrossed from "../../../assets/icons/eye-crossed.svg"
 import Loader from "@/components/Loader"
 import Toast from "@/components/Toast"
+import Head from "next/head"
 
 const NewPasword = () => {
     const [password, setPassword] = useState(null)
@@ -63,6 +64,9 @@ const NewPasword = () => {
 
     return (
         <section className="flex justify-center items-center overflow-hidden">
+            <Head>
+                <title>FazzPay | Change Password</title>
+            </Head>
             <Aside />
             <main className="flex-1 relative bg-primary md:bg-white ">
                 <section className="py-[5%] px-[10%] m-[5%] md:m-0 bg-white rounded-xl ">

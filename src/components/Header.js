@@ -54,7 +54,7 @@ const Header = () => {
                     </div>
                     <div className="cursor-pointer hidden md:block">
                         <p className="font-bold text-lg text-dark text-center">{profile.firstName} {profile.lastName}</p>
-                        <p className="text-sm text-dark opacity-90 text-center">{profile.noTelp}</p>
+                        <p className="text-sm text-dark opacity-90 text-center">+62{profile.noTelp}</p>
                     </div>
                 </div>
                 <Image src={bell} alt="notification" className="cursor-pointer" onClick={openNotiv} />

@@ -75,7 +75,7 @@ const History = () => {
     return (
         <>
             <Head>
-                <title>FazzPay || History</title>
+                <title>FazzPay | History</title>
             </Head>
             <Header />
             <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">

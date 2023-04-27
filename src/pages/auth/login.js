@@ -78,7 +78,7 @@ const Login = () => {
     return (
         <section className="flex justify-center items-center overflow-hidden">
             <Head>
-                <title>FazzPay || Login</title>
+                <title>FazzPay | Login</title>
             </Head>
             <Aside />
             <main className="flex-1 relative bg-primary md:bg-white ">

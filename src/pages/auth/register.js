@@ -86,7 +86,7 @@ const Register = () => {
     return (
         <section className="flex items-stretch relative overflow-hidden">
             <Head>
-                <title>FazzPay || Sign Up</title>
+                <title>FazzPay | Sign Up</title>
             </Head>
             <Aside />
             <main className="flex-1 relative bg-primary md:bg-bgPrimary flex justify-center items-center h-full">

@@ -73,6 +73,9 @@ const Dashboard = () => {
     let total = 0
     const chart = []
     listIncome?.map((data, i) => {
+        // if(data.total === 0) {
+        //     return
+        // }
         total += data.total
         total -= listExpense[i].total
         chart.push({ "day": data.day, "balance": total })
@@ -86,7 +89,7 @@ const Dashboard = () => {
     return (
         <body>
             <Head>
-                <title>FazzPay || Dashboard</title>
+                <title>FazzPay | Dashboard</title>
             </Head>
             <Header />
             <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">

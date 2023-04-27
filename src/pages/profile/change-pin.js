@@ -106,7 +106,7 @@ const ChangePin = () => {
     return (
         <>
             <Head>
-                <title>FazzPay || Change PIN</title>
+                <title>FazzPay | Change PIN</title>
             </Head>
             <Header />
             <main className="flex gap-4 flex-col md:flex-row bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
