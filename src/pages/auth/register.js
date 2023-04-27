@@ -16,6 +16,7 @@ import userFilled from "../../assets/icons/user-filled.svg"
 import eye from "../../assets/icons/eye.svg"
 import eyeCrossed from "../../assets/icons/eye-crossed.svg"
 import loggedIn from "@/utils/LoggedIn"
+import Head from "next/head"
 
 const Register = () => {
     const [email, setEmail] = useState(null)
@@ -80,6 +81,9 @@ const Register = () => {
     }
     return (
         <section className="flex items-stretch relative">
+            <Head>
+                <title>FazzPay || Sign Up</title>
+            </Head>
             <Aside />
             <main className="flex-1 relative bg-primary md:bg-bgPrimary flex justify-center items-center h-full">
                 <section className="py-[5%] px-[10%] m-[5%] md:m-0 rounded-xl bg-bgPrimary">

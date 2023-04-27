@@ -16,6 +16,7 @@ import { userDataAction } from "@/redux/slice/userData"
 import { profileAction } from "@/redux/slice/profile"
 import Toast from "@/components/Toast"
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const Profile = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -87,6 +88,9 @@ const Profile = () => {
 
     return (
         <>
+            <Head>
+                <title>FazzPay || Profile</title>
+            </Head>
             <Header />
             <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
@@ -130,4 +134,4 @@ const Profile = () => {
     )
 }
 
-export default authCheck( Profile)
+export default authCheck(Profile)

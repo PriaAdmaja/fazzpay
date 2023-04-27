@@ -14,6 +14,7 @@ import Loader from "@/components/Loader"
 import Toast from "@/components/Toast"
 import { profileAction } from "@/redux/slice/profile"
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const PhoneNumber = () => {
     const [phoneNumber, setPhoneNumber] = useState(null)
@@ -28,11 +29,11 @@ const PhoneNumber = () => {
     const dispatch = useDispatch()
     const router = useRouter()
 
-    const editPhone = async() => {
+    const editPhone = async () => {
         try {
             setIsLoading(true)
             const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/profile/${id}`
-            const result = await axios.patch(url, {noTelp: phoneNumber}, {
+            const result = await axios.patch(url, { noTelp: phoneNumber }, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -46,13 +47,16 @@ const PhoneNumber = () => {
             setShowToast(true)
             setToastMsg(error.response.data.msg)
             setToastType('danger')
-        } finally{
+        } finally {
             setIsLoading(false)
         }
     }
 
     return (
         <>
+            <Head>
+                <title>FazzPay || Phone Number</title>
+            </Head>
             <Header />
             <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
@@ -78,9 +82,9 @@ const PhoneNumber = () => {
             <Footer />
             {isLoading && <Loader />}
             <Toast msg={toastMsg} isShow={showToast} toastType={toastType} showHandler={() => setShowToast(false)} />
-        
+
         </>
     )
 }
 
-export default authCheck( PhoneNumber)
+export default authCheck(PhoneNumber)

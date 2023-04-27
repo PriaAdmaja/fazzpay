@@ -5,12 +5,16 @@ import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Sidebar from "@/components/Sidebar"
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const PersonalInfo = () => {
     const profile = useSelector(state => state.profile.profile)
     const router = useRouter()
     return (
         <>
+            <Head>
+                <title>FazzPay || Personal Info</title>
+            </Head>
             <Header />
             <main className="flex gap-4 flex-col md:flex-row  bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
@@ -45,4 +49,4 @@ const PersonalInfo = () => {
     )
 }
 
-export default authCheck( PersonalInfo)
+export default authCheck(PersonalInfo)

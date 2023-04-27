@@ -10,6 +10,7 @@ import Loader from "@/components/Loader"
 import Toast from "@/components/Toast"
 
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const ChangePin = () => {
     const [pin1, setPin1] = useState(null)
@@ -27,7 +28,7 @@ const ChangePin = () => {
     const [showToast, setShowToast] = useState(false)
 
     const { id, token } = useSelector(state => state.userData)
-    const router= useRouter()
+    const router = useRouter()
 
     const pinHandler = (e) => {
         switch (e.target.name) {
@@ -76,13 +77,13 @@ const ChangePin = () => {
         }
     }
 
-    const changePin = async() => {
+    const changePin = async () => {
         try {
             setIsLoading(true)
             const rawPin = [pin1, pin2, pin3, pin4, pin5, pin6]
             const pin = Number(rawPin.join(''))
             const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/pin/${id}`
-            const result = await axios.patch(url, {pin}, {
+            const result = await axios.patch(url, { pin }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -104,6 +105,9 @@ const ChangePin = () => {
 
     return (
         <>
+            <Head>
+                <title>FazzPay || Change PIN</title>
+            </Head>
             <Header />
             <main className="flex gap-4 flex-col md:flex-row bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
@@ -175,4 +179,4 @@ const ChangePin = () => {
     )
 }
 
-export default authCheck( ChangePin)
+export default authCheck(ChangePin)

@@ -12,6 +12,7 @@ import searchIcon from "../../assets/icons/search.svg"
 import defaultAvatar from "../../assets/avatars/default-avatar.jpg"
 import Loader from "@/components/Loader"
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const Transfer = () => {
     const [userList, setUserList] = useState([])
@@ -64,6 +65,9 @@ const Transfer = () => {
 
     return (
         <>
+            <Head>
+                <title>FazzPay || Transfer</title>
+            </Head>
             <Header />
             <main className="flex flex-col md:flex-row  gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
@@ -101,4 +105,4 @@ const Transfer = () => {
     )
 }
 
-export default authCheck( Transfer)
+export default authCheck(Transfer)

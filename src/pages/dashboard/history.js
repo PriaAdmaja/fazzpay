@@ -10,6 +10,7 @@ import Sidebar from "@/components/Sidebar"
 import Loader from "@/components/Loader"
 
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const History = () => {
     const [buttonText, setButtonText] = useState('-- Select Filter --')
@@ -37,7 +38,7 @@ const History = () => {
                 }
             }).then(res => setDataHistory(res.data)).catch(err => console.log(err)).finally(() => setIsLoading(false))
         }
-        return () => {getData = false}
+        return () => { getData = false }
 
     }, [router])
 
@@ -72,6 +73,9 @@ const History = () => {
 
     return (
         <>
+            <Head>
+                <title>FazzPay || History</title>
+            </Head>
             <Header />
             <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />
@@ -120,4 +124,4 @@ const History = () => {
     )
 }
 
-export default authCheck( History)
+export default authCheck(History)

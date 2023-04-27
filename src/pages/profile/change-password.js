@@ -15,6 +15,7 @@ import lockFilled from "../../assets/icons/lock-filled.svg"
 import eye from "../../assets/icons/eye.svg"
 import eyeCrossed from "../../assets/icons/eye-crossed.svg"
 import authCheck from "@/utils/AuthCheck"
+import Head from "next/head"
 
 const ChangePassword = () => {
     const [curPassword, setCurPassword] = useState(null)
@@ -88,6 +89,9 @@ const ChangePassword = () => {
 
     return (
         <>
+        <Head>
+            <title>FazzPay || Change Password</title>
+        </Head>
             <Header />
             <main className="flex flex-col md:flex-row gap-4 bg-bgPrimary px-[5%] lg:px-[100px] xl:px-[150px] py-5 md:py-10">
                 <Sidebar />

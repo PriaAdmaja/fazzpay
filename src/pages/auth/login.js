@@ -18,6 +18,7 @@ import Loader from "@/components/Loader"
 import Toast from "@/components/Toast"
 import { userDataAction } from "@/redux/slice/userData"
 import loggedIn from "@/utils/LoggedIn"
+import Head from "next/head"
 
 const Login = () => {
     const [email, setEmail] = useState(null)
@@ -76,6 +77,9 @@ const Login = () => {
 
     return (
         <section className="flex justify-center items-center">
+            <Head>
+                <title>FazzPay || Login</title>
+            </Head>
             <Aside />
             <main className="flex-1 relative bg-primary md:bg-white ">
                 <section className="py-[5%] px-[10%] m-[5%] md:m-0 bg-white rounded-xl ">
