@@ -62,10 +62,10 @@ const Login = () => {
                 router.push('/user/createpin')
                 return
             }
-            setToastMsg(result.data.msg)
-            setToastType('success')
-            setShowToast(true)
-            router.push('/dashboard')
+            // setToastMsg(result.data.msg)
+            // setToastType('success')
+            // setShowToast(true)
+            // router.push('/dashboard')
         } catch (error) {
             setToastMsg(error.response.data.msg)
             setToastType('danger')

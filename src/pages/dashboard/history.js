@@ -11,6 +11,7 @@ import Loader from "@/components/Loader"
 
 import authCheck from "@/utils/AuthCheck"
 import Head from "next/head"
+import defautAvatar from "../../assets/avatars/default-avatar.jpg"
 
 const History = () => {
     const [buttonText, setButtonText] = useState('-- Select Filter --')
@@ -97,7 +98,7 @@ const History = () => {
                                 <div className="flex justify-between items-center w-full" key={i}>
                                     <div className="flex gap-4 items-center">
                                         <div className="w-14 h-14 overflow-hidden rounded-lg relative">
-                                            <Image src={`${process.env.NEXT_PUBLIC_AVATAR}${data.image}`} alt="avatar" className="object-cover" fill />
+                                            <Image src={data.image ? `${process.env.NEXT_PUBLIC_AVATAR}${data.image}` : defautAvatar} alt="avatar" className="object-cover" fill />
                                         </div>
                                         <div>
                                             <p className="font-bold text-[#4D4B57] pb-2">{data.fullName}</p>

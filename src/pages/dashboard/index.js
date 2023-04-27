@@ -15,6 +15,7 @@ import arrowExpense from "../../assets/icons/arrow-expense.svg"
 import { profileAction } from "@/redux/slice/profile"
 import Loader from "@/components/Loader"
 import TopUp from "@/components/Topup"
+import defautAvatar from "../../assets/avatars/default-avatar.jpg"
 
 import authCheck from "@/utils/AuthCheck"
 import Head from "next/head"
@@ -148,7 +149,7 @@ const Dashboard = () => {
                                         <div className="flex justify-between items-center w-full text-sm lg:text-base" key={i}>
                                             <div className="flex gap-4 items-center">
                                                 <div className="w-10 xl:w-14 h-10 xl:h-14 overflow-hidden rounded-lg relative">
-                                                    <Image src={`${process.env.NEXT_PUBLIC_AVATAR}${data.image}`} alt="avatar" className="object-cover" fill />
+                                                    <Image src={data.image ? `${process.env.NEXT_PUBLIC_AVATAR}${data.image}` : defautAvatar} alt="avatar" className="object-cover" fill />
                                                 </div>
                                                 <div>
                                                     <p className="font-bold text-[#4D4B57] pb-2">{data.fullName}</p>
