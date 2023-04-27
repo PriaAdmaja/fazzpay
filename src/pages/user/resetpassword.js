@@ -2,6 +2,7 @@ import { useState } from "react"
 import Aside from "@/components/Aside"
 import Image from "next/image"
 import axios from "axios"
+import Head from "next/head"
 
 import mail from "../../assets/icons/mail.svg"
 import mailFilled from "../../assets/icons/mail-filled.svg"
