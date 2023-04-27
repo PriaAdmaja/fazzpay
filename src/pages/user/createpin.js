@@ -74,7 +74,7 @@ const CreatePin = () => {
     }
 
     return (
-        <section className="flex justify-center items-center">
+        <section className="flex justify-center items-center overflow-hidden">
             <Aside />
             <main className="flex-1 relative bg-primary md:bg-white h-full ">
                 <section className={`py-[5%] px-[10%] m-[5%] md:m-0 bg-white rounded-xl ${pinSuccess ? 'hidden' : 'block'} `}>

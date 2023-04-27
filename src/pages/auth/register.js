@@ -17,6 +17,7 @@ import eye from "../../assets/icons/eye.svg"
 import eyeCrossed from "../../assets/icons/eye-crossed.svg"
 import loggedIn from "@/utils/LoggedIn"
 import Head from "next/head"
+import { useRouter } from "next/router"
 
 const Register = () => {
     const [email, setEmail] = useState(null)
@@ -28,6 +29,8 @@ const Register = () => {
     const [toastMsg, setToastMsg] = useState(null)
     const [toastType, setToastType] = useState(null)
     const [showToast, setShowToast] = useState(false)
+
+    const router = useRouter()
 
     const inputHandler = (e) => {
         if (e.target.name === 'email') {
@@ -60,8 +63,10 @@ const Register = () => {
             const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/auth/register`
             const result = await axios.post(url, body)
             setToastMsg(result.data.message)
+            console.log(result);
             setToastType('success')
             setShowToast(true)
+            router.push('/auth/login')
         } catch (error) {
             setToastMsg(error.response.data.msg)
             setToastType('danger')
@@ -80,7 +85,7 @@ const Register = () => {
         seePwd === true ? setSeePwd(false) : setSeePwd(true)
     }
     return (
-        <section className="flex items-stretch relative">
+        <section className="flex items-stretch relative overflow-hidden">
             <Head>
                 <title>FazzPay || Sign Up</title>
             </Head>
