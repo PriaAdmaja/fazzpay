@@ -63,10 +63,9 @@ const Register = () => {
             const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/auth/register`
             const result = await axios.post(url, body)
             setToastMsg(result.data.message)
-            console.log(result);
             setToastType('success')
             setShowToast(true)
-            router.push('/auth/login')
+            // router.push('/auth/login')
         } catch (error) {
             setToastMsg(error.response.data.msg)
             setToastType('danger')

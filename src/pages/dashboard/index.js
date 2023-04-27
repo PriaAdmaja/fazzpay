@@ -33,7 +33,6 @@ const Dashboard = () => {
     const phoneNumber = useSelector((state) => state.profile.profile.noTelp)
     const dispatch = useDispatch()
 
-
     useEffect(() => {
         let getData = true
         if (getData === true) {

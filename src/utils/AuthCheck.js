@@ -7,7 +7,7 @@ const authCheck = (WrappedComponent) => {
 
         const {token} = useSelector(state => state.userData)
         if(!token) {
-            router.push('/auth/login')
+            router.push('/')
             return
         }
         return <WrappedComponent {...props} />
