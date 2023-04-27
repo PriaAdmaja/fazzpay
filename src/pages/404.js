@@ -2,7 +2,7 @@ import Image from "next/image"
 import error404 from "../assets/background/404.webp"
 import { useRouter } from "next/router"
 
-const custom404 = () => {
+const Custom404 = () => {
     const router = useRouter()
     return (
         <main className="flex justify-center items-center h-screen flex-col">
@@ -12,4 +12,4 @@ const custom404 = () => {
     )
 }
 
-export default custom404
+export default Custom404
