@@ -61,7 +61,7 @@ const Profile = () => {
             const url = `${process.env.NEXT_PUBLIC_FAZZPAY_API}/user/image/${id}`
             const result = await axios.patch(url, formData, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`,
                 }
             })
             if (result.data.msg === "Your token is destroyed please login again !") {

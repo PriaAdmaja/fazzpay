@@ -1,38 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# FazzPay Website
 
-First, run the development server:
+A website of a digital wallet. You can topup and transfer your FazzPay balance to another users. Interated with Midtrans Payment Gateway. This web was build with Next Js.
+
+
+
+
+## Demo
+
+Click [here](https://fazzpay-chi.vercel.app/)
+
+
+## Screenshots
+
+![Dashboard](https://user-images.githubusercontent.com/109842306/240844496-30ce9b79-6668-4395-81e8-78a61ee94778.PNG)
+
+![Transfer Page](https://user-images.githubusercontent.com/109842306/240844976-6157ec09-8781-419a-970e-c5acf8098c3b.PNG)
+
+## Tech Stack
+
+- [Next JS](https://nextjs.org/)
+- [Redux](https://redux.js.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Axios](https://axios-http.com/)
+
+
+## Installation
+
+1. Clone this repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+  git clone https://github.com/PriaAdmaja/fazzpay.git
 ```
+2. Enter the directory
+```bash
+  cd fazzpay
+```
+3. Instal all dependencies
+```bash
+  npm install
+```
+4. Create .env file
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  Setup your env variables with Environment Variable List below.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+5. Start a local server
+```bash
+  npm run dev
+```
+## Environment Variables
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+To run this project, you will need to add the following environment variables to your .env file
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`NEXT_PUBLIC_FAZZPAY_API` = Your Rest API
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+`Next_PUBLIC_AVATAR` = Your avatar domain
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Authors
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [PriaAdmaja](https://github.com/PriaAdmaja)
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Feedback
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you have any feedback, please reach out to us at priaadmaja@gmail.com
+
