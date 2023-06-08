@@ -4,19 +4,6 @@
 A website of a digital wallet. You can topup and transfer your FazzPay balance to another users. Interated with Midtrans Payment Gateway. This web was build with Next Js.
 
 
-
-
-## Demo
-
-Click [here](https://fazzpay-chi.vercel.app/)
-
-
-## Screenshots
-
-![Dashboard](https://user-images.githubusercontent.com/109842306/240844496-30ce9b79-6668-4395-81e8-78a61ee94778.PNG)
-
-![Transfer Page](https://user-images.githubusercontent.com/109842306/240844976-6157ec09-8781-419a-970e-c5acf8098c3b.PNG)
-
 ## Tech Stack
 
 - [Next JS](https://nextjs.org/)
@@ -56,7 +43,15 @@ To run this project, you will need to add the following environment variables to
 
 `Next_PUBLIC_AVATAR` = Your avatar domain
 
+## Demo
 
+Click [here](https://fazzpay-chi.vercel.app/)
+
+## Screenshots
+
+![Dashboard](https://user-images.githubusercontent.com/109842306/243967023-fe23e74a-1701-402d-9a49-031810ef3fbe.jpg)
+
+![Transfer Page](https://user-images.githubusercontent.com/109842306/243967043-0474f240-19dd-4135-bb4a-d85a9ddc129a.jpg)
 
 ## Authors
 
