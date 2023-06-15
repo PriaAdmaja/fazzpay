@@ -51,13 +51,13 @@ Click [here](https://fazzpay-chi.vercel.app/)
 ## Screenshots
 
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/109842306/240844496-30ce9b79-6668-4395-81e8-78a61ee94778.PNG" width="450" />
-  <img src="https://user-images.githubusercontent.com/109842306/240844855-02c6f241-737d-44de-8996-a61ee6ec5ed6.PNG" width="450" /> 
+  <img src="https://user-images.githubusercontent.com/109842306/240844496-30ce9b79-6668-4395-81e8-78a61ee94778.PNG" width="420" />
+  <img src="https://user-images.githubusercontent.com/109842306/240844855-02c6f241-737d-44de-8996-a61ee6ec5ed6.PNG" width="420" /> 
 </p>
 
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/109842306/240844954-5a88d04f-1efa-4e7b-b2c4-bf4c7142f9e3.PNG" width="450" />
-  <img src="https://user-images.githubusercontent.com/109842306/240844976-6157ec09-8781-419a-970e-c5acf8098c3b.PNG" width="450" /> 
+  <img src="https://user-images.githubusercontent.com/109842306/240844954-5a88d04f-1efa-4e7b-b2c4-bf4c7142f9e3.PNG" width="420" />
+  <img src="https://user-images.githubusercontent.com/109842306/240844976-6157ec09-8781-419a-970e-c5acf8098c3b.PNG" width="420" /> 
 </p>
 
 ## Authors
