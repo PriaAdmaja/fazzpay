@@ -39,9 +39,10 @@ A website of a digital wallet. You can topup and transfer your FazzPay balance t
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`NEXT_PUBLIC_FAZZPAY_API` = Your Rest API
-
-`Next_PUBLIC_AVATAR` = Your avatar domain
+```bash
+NEXT_PUBLIC_FAZZPAY_API = Your Rest API
+NEXT_PUBLIC_AVATAR = Your avatar domain
+```
 
 ## Demo
 
@@ -49,9 +50,15 @@ Click [here](https://fazzpay-chi.vercel.app/)
 
 ## Screenshots
 
-![Dashboard](https://user-images.githubusercontent.com/109842306/243967023-fe23e74a-1701-402d-9a49-031810ef3fbe.jpg)
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/109842306/240844496-30ce9b79-6668-4395-81e8-78a61ee94778.PNG" width="450" />
+  <img src="https://user-images.githubusercontent.com/109842306/240844855-02c6f241-737d-44de-8996-a61ee6ec5ed6.PNG" width="450" /> 
+</p>
 
-![Transfer Page](https://user-images.githubusercontent.com/109842306/243967043-0474f240-19dd-4135-bb4a-d85a9ddc129a.jpg)
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/109842306/240844954-5a88d04f-1efa-4e7b-b2c4-bf4c7142f9e3.PNG" width="450" />
+  <img src="https://user-images.githubusercontent.com/109842306/240844976-6157ec09-8781-419a-970e-c5acf8098c3b.PNG" width="450" /> 
+</p>
 
 ## Authors
 
