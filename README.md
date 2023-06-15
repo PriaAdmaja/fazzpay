@@ -1,7 +1,7 @@
 
 # FazzPay Website
 
-A website of a digital wallet. You can topup and transfer your FazzPay balance to another users. Interated with Midtrans Payment Gateway. This web was build with Next Js.
+A website of a digital wallet. You can topup and transfer your FazzPay balance to another users. Integrated with Midtrans Payment Gateway. This web was build with Next Js.
 
 
 ## Tech Stack
